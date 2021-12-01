@@ -1,3 +1,17 @@
 .Login {
-  background: blue;
-}
+  background: black;
+  color:white;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-top: 10px;
+
+  form {
+    background-color: gray;
+    color: white;
+    max-width: 30%;
+    border: white;
+    border-radius: 5px;
+    padding: 10px;
+    
+  }
+} 
