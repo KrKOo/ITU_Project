@@ -1,0 +1,13 @@
+@import 'src/assets/styles/colors.scss';
+
+html,
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.App {
+  min-height: 100vh;
+  display: block;
+  background: $dark-1;
+}
