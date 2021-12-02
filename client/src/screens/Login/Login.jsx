@@ -7,34 +7,67 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import styles from './Login.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
+import validator from 'validator';
 
 const Login = (props) => {
-  const [details, setDetails] = useState({ username: '', password: '' });
+  const [username, setUsername] = useState('');
 
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [email, setEmail] = useState('');
   const [showLogin, setShowLogin] = useState(true);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(details.username + ', ' + details.password);
-    if (details.username === '' || details.password === '')
-      alert('Please fill in the login form');
-    props.setUserHandler(details.username);
-    /*else{
-        const response = await axios.post('/loginUser', {
-          username: details.username,
-          password: details.password,
-        });
-        // set the state of the user
-        props.stateHandler(response.data);
-        console.log(response.data);
-          if(response.data['result']==="Success"){
-            sessionStorage.setItem("logged_user", JSON.stringify(response.data));
-          }
-          else{
-            alert("Failed to log in, wrong credentials")
-          }*/
+
+
+  const validateEmail = (e) => {
+
+    if (!validator.isEmail( e.target.value)) 
+      setEmailError('Enter valid Email!')
+    
+  }
+
+  useEffect(() => {
+    
+    if((confirmPassword!==password)&& (password!=="" &&confirmPassword!=="" ))
+      setEmailError("Passwords do not match");
+    else
+      setEmailError('');
+  }, [confirmPassword,password])
+
+
+  const handleSubmit = async (e) => { 
+    e.preventDefault(); 
+    if (confirmPassword===password){
+      //console.log(username + ', ' + password);
+      if (username === '' || password === ''){
+        alert('Please fill in the login form');
+      props.setUserHandler(username);
+      }
+      
+      else{
+          var endpoint= showLogin ? '/loginUser': "registerUser";
+       
+          const response = await axios.post(endpoint, {
+            username: username,
+            password: password,
+            email:email
+          });
+          // set the state of the user
+          props.stateHandler(response.data);
+          console.log(response.data);
+            if(response.data['result']==="Success"){
+              sessionStorage.setItem("logged_user", JSON.stringify(response.data));
+            }
+            else{
+
+              alert("Failed to log in, wrong credentials");
+            }
+    }
   };
+}
 
   return (
     <div className={styles.Login}>
@@ -51,39 +84,73 @@ const Login = (props) => {
             className={showLogin ? '' : styles.activeButton}>
             Register
           </button>
+         
         </div>
-
+        <span style={{
+              fontWeight: 'bold',
+              color: 'red',
+            }}>{emailError}</span>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputContainer}>
-            <label>Username</label>
+            <label>Username{!showLogin && <text style={{color:"red"}}>*</text>}</label>
             <input
               type='text'
               onChange={(e) =>
-                setDetails({ ...details, username: e.target.value })
+                setUsername(e.target.value )
               }
-              value={details.username}
+              value={username}
             />
           </div>
 
           <div className={styles.inputContainer}>
-            <label>Password</label>
+            <label>Password{!showLogin && <text style={{color:"red"}}>*</text>}</label>
             <input
               type='password'
               onChange={(e) =>
-                setDetails({ ...details, password: e.target.value })
+                setPassword( e.target.value )
               }
-              value={details.password}
+              value={password}
             />
           </div>
+          {!showLogin &&
+          <div className={styles.inputContainer}>
+            <label>Confirm Password{!showLogin && <text style={{color:"red"}}>*</text>}</label>
+            <input
+              type='password'
+              onChange={(e) =>
+                setConfirmPassword(e.target.value )
+              }
+              value={confirmPassword}
+            />
+          </div>
+
+            }
+
+          {!showLogin &&
+          <div className={styles.inputContainer}>
+            <label>Email{!showLogin && <text style={{color:"red"}}>*</text>}</label>
+            <input
+              type='email'
+              onChange={(e) =>{validateEmail(e);
+                setEmail(e.target.value);
+              }}
+              value={email}
+            />
+           
+          </div>
+          }
 
           <div className={styles.inputContainer}>
             <input
               className={styles.submitButton}
               type='submit'
-              value='Log in'
+              
+              value={showLogin  ? 'Log in' : "Register" }
             />
           </div>
+          
         </form>
+
         <div className={styles.alternativeLoginContainer}>
           <FontAwesomeIcon
             icon={faFacebook}

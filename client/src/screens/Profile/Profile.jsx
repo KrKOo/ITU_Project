@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
-
+import { Player } from '../../components/player';
 const Profile = (props) => {
   const [newDetails, setNewDetails] = useState("");
   const [settings, setSettings] = useState(false);
@@ -31,7 +31,9 @@ const Profile = (props) => {
           <input type="submit" value="Change details"/>
         </form>
       </div>}
+      <Player/>
     </div>
+    
   );
 };
 
