@@ -3,6 +3,7 @@ import styles from './Profile.module.scss';
 
 const Profile = (props) => {
   const [newDetails, setNewDetails] = useState("");
+  const [settings, setSettings] = useState(false);
   const HandleSubmit = async e=> {
     alert("Changing username to: " + newDetails.username)
     //request na BE
@@ -10,15 +11,25 @@ const Profile = (props) => {
   useEffect(() => {
     setNewDetails(props.user.username);
   }, [props.user])
+
+  const numbers = [1, 2, 3, 4, 5];
+  const listItems = numbers.map((number,index) =>
+    <li key={index}> {number} </li>
+  );
   return (
     <div className={styles.Profile}>
       <header><b>Profile</b></header>
-      <p>Logged in: {props.user.username}</p>
-      <p><b>Change account details</b></p>
-      <form onSubmit={HandleSubmit}>
-        <input type="text" defaultValue={props.user.username} onChange={e => setNewDetails(e.target.value)}/>
-        <input type="submit" value="Change name"/>
-      </form>
+      <p><b>Logged in: {props.user.username}</b></p>
+      <p><b>My playlists</b></p>
+      <ul>{listItems}</ul>
+      <button onClick={e => {setSettings(!settings)}}>Change account details</button><br></br>
+      {settings && <div>
+        <p><b>Change account details</b></p>
+        <form onSubmit={HandleSubmit}>
+          <input type="text" defaultValue={props.user.username} onChange={e => setNewDetails(e.target.value)}/><br></br>
+          <input type="submit" value="Change details"/>
+        </form>
+      </div>}
     </div>
   );
 };
