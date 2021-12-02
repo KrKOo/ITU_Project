@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
 
 const Profile = (props) => {
@@ -9,7 +10,7 @@ const Profile = (props) => {
     //request na BE
   }
   useEffect(() => {
-    setNewDetails(props.user.username);
+    setNewDetails(props.user);
   }, [props.user])
 
   const numbers = [1, 2, 3, 4, 5];
@@ -18,8 +19,8 @@ const Profile = (props) => {
   );
   return (
     <div className={styles.Profile}>
-      <header><b>Profile</b></header>
-      <p><b>Logged in: {props.user.username}</b></p>
+      <header><b>Profile</b> <Link to="/"><button>Home</button></Link></header> 
+      <p><b>Logged in: {props.user.username}</b></p> 
       <p><b>My playlists</b></p>
       <ul>{listItems}</ul>
       <button onClick={e => {setSettings(!settings)}}>Change account details</button><br></br>

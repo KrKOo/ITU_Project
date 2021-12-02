@@ -7,8 +7,14 @@
   h1 {
     display: block;
     text-align: center;
-    font-size: 1.7em;
+    font-size: 1.4em;
   }
+
+  a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+  }
+
 
   .loginFormContainer {
     width: 300px;

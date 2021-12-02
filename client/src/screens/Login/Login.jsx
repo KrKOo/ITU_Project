@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import {
   faTwitter,
   faGoogle,
@@ -38,6 +39,7 @@ const Login = (props) => {
   return (
     <div className={styles.Login}>
       <div className={styles.loginFormContainer}>
+      <Link to="/"><h1>Home</h1></Link>
         <div className={styles.screenSelect}>
           <button
             onClick={() => setShowLogin(true)}
