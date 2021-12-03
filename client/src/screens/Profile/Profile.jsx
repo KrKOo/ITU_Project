@@ -12,31 +12,38 @@ const Profile = (props) => {
   useEffect(() => {
     setNewDetails(props.user);
   }, [props.user]);
- 
-  const numbers = [1, 2, 3, 4, 5,6,7,8,9,10];
+
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const listItems = numbers.map((number, index) => (
-    <Link to="/"><li className={styles.playlist_list} key={index}> {} </li> </Link>
+    <Link to='/'>
+      <li className={styles.playlist_list} key={index}></li>
+    </Link>
   ));
   return (
     <div className={`${styles.Profile} ${props.className}`}>
-      
-        <div className={styles.userInfo}>
-          <img className={styles.profilePic} src="https://c.tenor.com/yheo1GGu3FwAAAAd/rick-roll-rick-ashley.gif"width="50" height="50"></img>
-          <button
-            onClick={(e) => {
-              setSettings(!settings);
-            }}>
-            Change account details
-          </button>
-          <b>Logged in: {props.user.username}</b>
+      <div className={styles.profileInfoContainer}>
+        <button
+          onClick={(e) => {
+            setSettings(!settings);
+          }}
+          className={styles.accountDetailButton}>
+          Change account details
+        </button>
+        <div className={styles.profileInfo}>
+          <img
+            className={styles.profilePic}
+            src='https://c.tenor.com/yheo1GGu3FwAAAAd/rick-roll-rick-ashley.gif'></img>
+
+          <p>{props.user.username}</p>
         </div>
-        <p>
-          <b>My playlists</b>
-        </p>
+      </div>
+
+      <h1>My playlists</h1>
+
       <div className={styles.listWrapper}>
         <ul>{listItems}</ul>
       </div>
-      <br></br>
+
       {settings && (
         <div>
           <p>
