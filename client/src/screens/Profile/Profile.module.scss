@@ -5,35 +5,67 @@
   color: $font-1;
   position: relative;
 }
-.playlist_list
-{
-    border: solid 1px black;
-    
-    position: relative;
-    float: left;
-    height: 200px;
-    width: 200px;
-    list-style-type: none;
-    margin: 20px;
-    
-    vertical-align: middle;
-    background-image: url("https://c.tenor.com/q0Ejci9EQhcAAAAi/rick-astley-rick-roll.gif");
+.playlist_list {
+  border: solid 1px black;
+
+  position: relative;
+  float: left;
+  height: 200px;
+  width: 200px;
+  list-style-type: none;
+  margin: 20px;
+
+  vertical-align: middle;
+  background-image: url('https://c.tenor.com/q0Ejci9EQhcAAAAi/rick-astley-rick-roll.gif');
 }
 
-.userInfo{
-  float: right;
-  display: block;
- 
-  padding:20px;
-  .profilePic{
-    position: relative;
+.profileInfoContainer {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 
+  .accountDetailButton {
+    margin: 0 20px;
+    background: none;
+    border: none;
+    color: $font-1;
+    &:hover {
+      cursor: pointer;
+      color: $primary;
+    }
+  }
+
+  .profileInfo {
+    display: flex;
+    flex: row;
+    align-items: center;
+
+    background: $primary;
+
+    border-radius: 20px;
+
+    .profilePic {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    p {
+      color: black;
+      padding: 0 10px;
+      vertical-align: middle;
+      display: inline;
+      margin: 0;
+    }
   }
 }
 
-.listWrapper{
-  display:block;
+.listWrapper {
   position: relative;
-  height: 100%;
-  width: 100%;
+  a {
+    width: 10px;
+    height: 10px;
+  }
 }
