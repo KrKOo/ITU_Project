@@ -5,7 +5,7 @@ export const SidePanel = (props) => {
   
 
   //Placeholder list, nahradi ho list s playlistami
-  const numbers = [1, 2, 3, 4, 5];
+  const numbers = ["Metal", "Rap", "Pop", "Cock", "Sock"];
   const listItems = numbers.map((number, index) => (
     <button className={props.currPlaylist===number ? styles.activeButton : ""} onClick={e => {props.pageHandler("Playlist"); props.playlistHandler(number)}}><li key={index}> {number} </li></button>
   ));
