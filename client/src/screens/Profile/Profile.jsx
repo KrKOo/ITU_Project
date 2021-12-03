@@ -27,7 +27,7 @@ const Profile = (props) => {
             setSettings(!settings);
           }}
           className={styles.accountDetailButton}>
-          Change account details
+          Manage profile
         </button>
         <div className={styles.profileInfo}>
           <img
@@ -36,6 +36,16 @@ const Profile = (props) => {
 
           <p>{props.user.username}</p>
         </div>
+        {settings && (
+        <div className={styles.manageProfileWrapper}>
+          <p>
+            <b>Manage account details</b>
+          </p>
+          <a href="/">Change Password</a>
+          <a href="/">Change Email</a>
+        
+        </div>
+      )}
       </div>
 
       <h1>My playlists</h1>
@@ -44,22 +54,7 @@ const Profile = (props) => {
         <ul>{listItems}</ul>
       </div>
 
-      {settings && (
-        <div>
-          <p>
-            <b>Change account details</b>
-          </p>
-          <form onSubmit={HandleSubmit}>
-            <input
-              type='text'
-              defaultValue={props.user.username}
-              onChange={(e) => setNewDetails(e.target.value)}
-            />
-            <br></br>
-            <input type='submit' value='Change details' />
-          </form>
-        </div>
-      )}
+     
     </div>
   );
 };

@@ -34,7 +34,9 @@
     &:hover {
       cursor: pointer;
       color: $primary;
+      
     }
+    
   }
 
   .profileInfo {
@@ -59,6 +61,34 @@
       display: inline;
       margin: 0;
     }
+    
+    
+  }
+  .manageProfileWrapper{
+    margin-top: 50px;
+    margin-right: 200px;
+    border-left: 3px solid $primary;
+    
+    padding-left: 10px;
+    display: block;
+    position: fixed;
+      z-index: 1;
+      a{
+        vertical-align: bottom;
+        color:  $primary;
+        display: block;
+        
+      }
+      a:link {
+        text-decoration: none;
+      }
+      a:hover {
+        opacity: 85%;
+      }
+      
+    
+
+
   }
 }
 
@@ -69,3 +99,4 @@
     height: 10px;
   }
 }
+
