@@ -7,9 +7,9 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-export const Player = () => {
+export const Player = (props) => {
   const [slider, setSlider] = useState(0);
-  const [playing, setPlaying] = useState(false);
+  
 
   const theme = createTheme({
     palette: {
@@ -23,6 +23,7 @@ export const Player = () => {
   return (
     <div className={styles.Player}>
       <div className={styles.controlsContainer}>
+        <p>Song playing: {props.currSong}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
             <p style={{ textAlign: 'left' }}>{slider}%</p>
@@ -37,8 +38,8 @@ export const Player = () => {
 
           <div className={styles.Buttons}>
             <SkipPrevious />
-            {!playing && <PlayCircleIcon onClick={e => { setPlaying(true) }} />}
-            {playing && <PauseCircleIcon onClick={e => { setPlaying(false) }} />}
+            {!props.playing && <PlayCircleIcon onClick={e => { props.playHandler(true) }} />}
+            {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
             <SkipNext />
           </div>
         </ThemeProvider>
