@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import { Player } from '../../components/player';
+import { ControlPanel } from '../../components/ControlPanel';
 const Profile = (props) => {
   const [newDetails, setNewDetails] = useState("");
   const [settings, setSettings] = useState(false);
@@ -19,6 +20,7 @@ const Profile = (props) => {
   );
   return (
     <div className={styles.Profile}>
+      <ControlPanel/>
       <header><b>Profile</b> <Link to="/"><button>Home</button></Link></header> 
       <p><b>Logged in: {props.user.username}</b></p> 
       <p><b>My playlists</b></p>
@@ -32,6 +34,7 @@ const Profile = (props) => {
         </form>
       </div>}
       <Player/>
+      
     </div>
     
   );
