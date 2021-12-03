@@ -1,0 +1,15 @@
+@import 'src/assets/styles/colors.scss';
+
+.Profile {
+  background: black;
+  color: $font-1;
+  width: 100%;
+  height: max;
+}
+
+ul {
+  list-style-type: circle;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
