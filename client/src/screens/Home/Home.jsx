@@ -9,11 +9,19 @@ import { useState } from 'react';
 const Home = (props) => {
   const [page, setPage] = useState("Home");
   const [currPlaylist, setCurrPlaylist] = useState([]);
+  const [currSong, setCurrSong] = useState([]);
+  const [playing, setPlaying] = useState(false);
+  const songHandler = (foo) => {
+    setCurrSong(foo)
+  }
   const pageHandler = (foo) => {
     setPage(foo)
   }
   const playlistHandler = (foo) => {
     setCurrPlaylist(foo)
+  }
+  const playHandler = (foo) => {
+    setPlaying(foo)
   }
   return (
     <div className={styles.Home}>
@@ -30,11 +38,11 @@ const Home = (props) => {
           <p>Create a new playlist</p>
         </div>
         }
-        {page==="Playlist" && <Playlist currPlaylist={currPlaylist}/>}
+        {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} playHandler={playHandler} songHandler={songHandler}/>}
         
       </div>
 
-      <Player />
+      <Player playing={playing} playHandler={playHandler} currSong={currSong}/>
     </div>
   );
 };
