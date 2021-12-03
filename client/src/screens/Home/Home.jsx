@@ -1,6 +1,7 @@
 import styles from './Home.module.scss';
 import { Link ,Navigate} from 'react-router-dom';
 import Profile from '../Profile/Profile';
+import Playlist from '../Profile/Playlist';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
 import { useState } from 'react';
@@ -29,10 +30,7 @@ const Home = (props) => {
           <p>Create a new playlist</p>
         </div>
         }
-        {page==="Playlist" && <div>
-          <p>Playlist stranka</p>
-        </div>
-        }
+        {page==="Playlist" && <Playlist currPlaylist={currPlaylist}/>}
         
       </div>
 
