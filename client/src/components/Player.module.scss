@@ -1,26 +1,52 @@
 @import 'src/assets/styles/colors.scss';
 
-.wrapper{
-    display: flex;
-    position: fixed; 
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100px;
-    margin-bottom: 20px;
-    justify-content: center;
-    width: max;
-    background-color: $dark-2;
-    
+.Player {
+  background: $dark-2;
+  position: relative;
+  display: fixed;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
 
-  
+  .controlsContainer {
+    display: block;
+    width: 80vw;
+    max-width: 500px;
 
-   
+    margin: 0 auto;
+
+    .sliderRow {
+      display: flex;
+      flex-direction: row;
+      text-align: center;
+
+      .sliderContainer {
+        width: 100%;
+        & .MuiSlider-thumb {
+          height: 300px;
+          width: 24;
+        }
+      }
+
+      p {
+        margin: auto;
+        width: 70px;
+        color: $font-1;
+      }
+    }
+
+    .Buttons {
+      padding-bottom: 20px;
+      svg {
+        color: $grey;
+        transform: scale(1.5);
+        margin: 0 20px;
+
+        &:hover {
+          cursor: pointer;
+          filter: brightness(85%);
+        }
+      }
+    }
+  }
 }
-
-.controls {
-    width: 350px;
-    
-}
-
-

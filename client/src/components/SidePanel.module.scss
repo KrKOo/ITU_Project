@@ -1,0 +1,8 @@
+@import 'src/assets/styles/colors.scss';
+
+.SidePanel {
+  display: flex;
+  position: left;
+  justify-content: center;
+  color: $font-1;
+}
