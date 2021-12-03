@@ -3,4 +3,37 @@
 .Profile {
   background: green;
   color: $font-1;
+  position: relative;
+}
+.playlist_list
+{
+    border: solid 1px black;
+    
+    position: relative;
+    float: left;
+    height: 200px;
+    width: 200px;
+    list-style-type: none;
+    margin: 20px;
+    
+    vertical-align: middle;
+    background-image: url("https://c.tenor.com/q0Ejci9EQhcAAAAi/rick-astley-rick-roll.gif");
+}
+
+.userInfo{
+  float: right;
+  display: block;
+ 
+  padding:20px;
+  .profilePic{
+    position: relative;
+
+  }
+}
+
+.listWrapper{
+  display:block;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
