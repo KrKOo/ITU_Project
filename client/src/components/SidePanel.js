@@ -16,6 +16,7 @@ export const SidePanel = (props) => {
       <h1>Edvánsd Mjúzik Pleja</h1>
       <div >
         <button className={props.page==="Profile" ? styles.activeButton : ""} onClick={e => {props.pageHandler("Profile"); props.playlistHandler("")}}>My profile</button>
+        <button className={props.page==="Search" ? styles.activeButton : ""} onClick={e => {props.pageHandler("Search"); props.playlistHandler("")}}>Search</button>
         <button className={props.page==="NewPlaylist" ? styles.activeButton : ""} onClick={e => {props.pageHandler("NewPlaylist"); props.playlistHandler("")}}>New playlist</button>
       </div>
       <div>

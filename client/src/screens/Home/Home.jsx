@@ -2,6 +2,7 @@ import styles from './Home.module.scss';
 import { Link ,Navigate} from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import Playlist from '../Profile/Playlist';
+import Search from '../Profile/Search';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
 import { useState } from 'react';
@@ -39,6 +40,7 @@ const Home = (props) => {
         </div>
         }
         {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} currSong={currSong} playHandler={playHandler} songHandler={songHandler}/>}
+        {page==="Search" && <Search/>}
         
       </div>
 
