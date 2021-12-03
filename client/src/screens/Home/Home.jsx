@@ -1,4 +1,5 @@
 import styles from './Home.module.scss';
+import { Link ,Navigate} from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
@@ -16,6 +17,7 @@ const Home = (props) => {
   return (
     <div className={styles.Home}>
       <div className={styles.flexRow}>
+      {props.user.username==="" && <Navigate to={'/login' } />}
         <SidePanel className={styles.SidePanel} page={page} pageHandler={pageHandler} playlistHandler={playlistHandler} currPlaylist={currPlaylist}/>
         {page==="Profile" && <Profile
           className={styles.Profile}
