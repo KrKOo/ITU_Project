@@ -5,11 +5,17 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 
 const Playlist = (props) => {
-    const [hover, setHover] = useState(false);
-    {!props.playing && <PlayCircleIcon onClick={e => { props.playHandler(true) }} />}
+    const handleClick = (foo) => {
+        if (props.currSong === foo) props.playHandler(!props.playing); 
+        else {
+            props.songHandler(foo)
+            props.playHandler(true);
+        }
+        
+    }
     const songs = ["Suck", "On", "Deez", "Nuts"]
     const listItems = songs.map((title, index) => (
-        <li key={index}>{!props.playing &&<PlayCircleIcon onClick={e => { props.playHandler(true); props.songHandler(title) }}/>}     {title} </li>
+        <li key={index} onClick={e => { handleClick(title) }} >     {title} </li>
       ));
   
   return (
