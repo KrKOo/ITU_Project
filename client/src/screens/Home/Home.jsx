@@ -38,7 +38,7 @@ const Home = (props) => {
           <p>Create a new playlist</p>
         </div>
         }
-        {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} playHandler={playHandler} songHandler={songHandler}/>}
+        {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} currSong={currSong} playHandler={playHandler} songHandler={songHandler}/>}
         
       </div>
 
