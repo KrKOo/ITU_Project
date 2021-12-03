@@ -6,27 +6,25 @@
   width: 100%;
   height: max;
 
-  li {
-    background-color: rgb(22, 22, 22);
-    height: 40px;
-    text-align: center;
-    vertical-align: center;
+  button {
+    padding: 10px;
+    color: inherit;
+    width: 100px;
+    background: $dark-2;
+    border: none;
+    font-size: 1em;
     &:hover {
       filter: brightness(85%);
       cursor: pointer;
     }
   }
-  
-  ul {
-    list-style-type: none;
-    list-style-position: inside;
-    margin: 0;
-    padding: 0;
-    
+  .activeButton {
+    background: $primary !important;
+    color: black !important;
   }
-  .playbtn {
-    align-self: left;
-
+  form {
+    display: flex;
+    flex-direction: column;
   }
 }
 
