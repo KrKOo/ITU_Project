@@ -20,9 +20,9 @@ const Home = (props) => {
       for (let i = 1; i < queue.length; i++) console.log(queue[i].title + ",");
     }
     else console.log("Pausing");
-}, [playing, queue]);
+  }, [playing, queue]);
 
-  const queueHandler = (foo) => {
+  const queueHandler = (foo) => { 
     setQueue(foo)
   }
   const songHandler = (foo) => {
@@ -54,7 +54,7 @@ const Home = (props) => {
         
       </div>
 
-      <Player playing={playing} queue={queue} playHandler={playHandler} currSong={currSong}/>
+      <Player playing={playing} audioSrc={!playing ? "":queue[0].audioSrc} queue={queue} playHandler={playHandler} currSong={currSong}/>
     </div>
   );
 };
