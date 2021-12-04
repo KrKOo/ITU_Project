@@ -23,26 +23,44 @@ const Search = (props) => {
 
   return (
     <div className={`${styles.Search} ${props.className}`}>
-      <header>
-        <b>Search for a song</b>{' '}
-      </header>
+      <div className={styles.inputContainer}>
+          <label>Search for a song</label>
+          <input type="text" defaultValue="Search" value={searchVal} onChange={e => {setSearchVal(e.target.value)}}/>
+      </div>
       <div>
-        <input type="text" defaultValue="Search" value={searchVal} onChange={e => {setSearchVal(e.target.value)}}/>
         <p>vyfiltrovany list s pesnickami</p>
       </div>
       <div>
         <button className={add ? styles.activeButton : ""} onClick={e => {setAdd(!add)}}>Upload new song</button>
       </div>
       {add && <form onSubmit={SubmitUpload}>
-        Title
-        <input type="text" value={title} onChange={e => {setTitle(e.target.value)}}/>
-        Album
-        <input type="text" value={album} onChange={e => {setAlbum(e.target.value)}}/>
-        Artist
-        <input type="text" value={artist} onChange={e => {setArtist(e.target.value)}}/>
-        Release Date
-        <input type="text" value={release} onChange={e => {setRelease(e.target.value)}}/>
-        <input type="submit" value="Upload"/>
+        <div className={styles.inputContainer}>
+          <label>Title</label>
+          <input type="text" value={title} onChange={e => {setTitle(e.target.value)}}/>
+        </div>
+        <div className={styles.inputContainer}>
+          <label>Album</label>
+          <input type="text" value={album} onChange={e => {setAlbum(e.target.value)}}/>
+        </div>
+        
+        <div className={styles.inputContainer}>
+          <label>Artist</label>
+          <input type="text" value={artist} onChange={e => {setArtist(e.target.value)}}/>
+        </div>
+        
+        <div className={styles.inputContainer}>
+          <label>Release Date</label>
+          <input type="date" value={release} onChange={e => {setRelease(e.target.value)}}/>
+        </div>
+        <div className={styles.inputContainer}>
+          <label>Song file</label>
+          <input type="file"/>
+        </div>
+        <input
+              className={styles.submitButton}
+              type='submit'
+              value="Upload"
+            />
       </form>}
     </div>
   );
