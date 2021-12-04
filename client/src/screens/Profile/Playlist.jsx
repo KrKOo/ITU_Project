@@ -10,13 +10,11 @@ const Playlist = (props) => {
         if (props.currSong === foo) props.playHandler(!props.playing); 
         else {
             props.songHandler(tracks[index].title)
-
-            props.playHandler(true);
             console.log("index"+index);
             let queue = [];
             for (index; index < tracks.length; index++) queue.push(tracks[index]);
-          
             props.queueHandler(queue);
+            props.playHandler(true);
         }
         
     }
