@@ -13,6 +13,7 @@ const Home = (props) => {
   const [currSong, setCurrSong] = useState([]);
   const [playing, setPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
+  const [queueIndex, setqueueIndex] = useState(0);
 
   useEffect(() => {
     if (playing) {
@@ -23,8 +24,14 @@ const Home = (props) => {
   }, [playing, queue]);
 
   const queueHandler = (foo) => { 
-    setQueue(foo)
+    setQueue(foo);
+    setqueueIndex(0);
   }
+  const indexHandler = (foo) => { 
+    setqueueIndex(foo);
+    setCurrSong(queue[foo]);
+    console.log("here");
+  } 
   const songHandler = (foo) => {
     setCurrSong(foo)
   }
@@ -54,7 +61,7 @@ const Home = (props) => {
         
       </div>
 
-      <Player playing={playing} audioSrc={!playing ? "":queue[0].audioSrc} queue={queue} playHandler={playHandler} currSong={currSong}/>
+      <Player playing={playing} queueIndex={queueIndex} indexHandler={indexHandler} audioSrc={!playing ? "":currSong.audioSrc} queue={queue} playHandler={playHandler} currSong={currSong}/>
     </div>
   );
 };
