@@ -6,7 +6,7 @@ import Search from '../Profile/Search';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
 import { useState } from 'react';
-
+import { Createplaylist } from '../Profile/Createplaylist';
 const Home = (props) => {
   const [page, setPage] = useState("Home");
   const [currPlaylist, setCurrPlaylist] = useState([]);
@@ -35,10 +35,7 @@ const Home = (props) => {
           setUserHandler={props.setUserHandler}
         />
         }
-        {page==="NewPlaylist" && <div>
-          <p>Create a new playlist</p>
-        </div>
-        }
+        {page==="NewPlaylist" && <Createplaylist/>}
         {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} currSong={currSong} playHandler={playHandler} songHandler={songHandler}/>}
         {page==="Search" && <Search/>}
         
