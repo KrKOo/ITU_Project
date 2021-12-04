@@ -23,7 +23,18 @@ export const Player = (props) => {
 
     interval.current = setInterval(() => {
       if (audio.current.ended) {
-        //toNextTrack();
+        if(props.queueIndex + 1 < props.queue.length) {
+          props.indexHandler(props.queueIndex + 1);
+          clearInterval(interval.current);
+          audio.current.currentTime = 0;
+          setSlider(audio.current.currentTime);
+          audio.current.play();
+          Timer();
+        }
+        else {
+          props.playHandler(false)
+          audio.current.pause();
+        }
       } else {
         setSlider(audio.current.currentTime);
       }
@@ -69,7 +80,7 @@ export const Player = (props) => {
       }
     
     
-  }, [props.queue])
+  }, [props.queue, props.currSong])
   
 
 
@@ -89,7 +100,7 @@ export const Player = (props) => {
   return (
     <div className={styles.Player}>
       <div className={styles.controlsContainer}>
-        <p>Song playing: {props.currSong}</p>
+        <p>Song playing: {props.currSong.title}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
             <p style={{ textAlign: 'left' }}>0:00</p>
