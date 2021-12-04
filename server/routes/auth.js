@@ -12,7 +12,7 @@ router.post('/login', function (req, res) {
     .where({ username: username, password: password })
     .then((users) => {
       if (users.length > 0) {
-        res.sendStatus(200)
+        res.send({ username: username });
       }
       else {
         res.sendStatus(401);
