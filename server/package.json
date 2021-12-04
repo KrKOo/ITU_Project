@@ -28,15 +28,18 @@
     "prod": "NODE_ENV=production npm-run-all build server",
     "transpile": "babel . --out-dir build --ignore node_modules",
     "watch:dev": "nodemon --ignore node_modules --ignore build",
-    "clean": "rimraf build"
+    "clean": "rimraf build",
+    "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.cjs"
   },
   "dependencies": {
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
+    "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "knex": "^0.95.14",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.15",
     "npm-run-all": "^4.1.5",
