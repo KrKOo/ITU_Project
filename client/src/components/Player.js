@@ -44,7 +44,7 @@ export const Player = (props) => {
     }, [1000]);
   };
 
-  const onScrub = (value) => {
+  const change = (value) => {
     // Clear any timers already running
     clearInterval(interval.current);
     audio.current.currentTime = value;
@@ -99,6 +99,45 @@ export const Player = (props) => {
     },
   });
 
+  const handleChange = (value) => {
+    if(value) {
+      if(props.queueIndex + 1 < props.queue.length) {
+        props.indexHandler(props.queueIndex + 1);
+        clearInterval(interval.current);
+        audio.current.currentTime = 0;
+        setSlider(audio.current.currentTime);
+        audio.current.play();
+      }
+      else {
+        console.log("end ")
+        props.playHandler(false)
+        audio.current.pause();
+        props.indexHandler(props.queue.length - 1);
+        clearInterval(interval.current);
+        audio.current.currentTime = 0;
+        setSlider(audio.current.currentTime);
+      }
+    }
+    else {
+      if(props.queueIndex - 1 >= 0) {
+        props.indexHandler(props.queueIndex - 1);
+        clearInterval(interval.current);
+        audio.current.currentTime = 0;
+        setSlider(audio.current.currentTime);
+        audio.current.play();
+      }
+      else {
+        console.log("end ")
+        props.playHandler(false)
+        audio.current.pause();
+        props.indexHandler(0);
+        clearInterval(interval.current);
+        audio.current.currentTime = 0;
+        setSlider(audio.current.currentTime);
+      }
+    }
+  };
+
 
   return (
     <div className={styles.Player}>
@@ -109,7 +148,7 @@ export const Player = (props) => {
             <p style={{ textAlign: 'left' }}>0:00</p>
             <div className={styles.sliderContainer}>
 
-              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => onScrub(e.target.value)} value={slider} />
+              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => change(e.target.value)} value={slider} />
 
 
             </div>
@@ -117,10 +156,10 @@ export const Player = (props) => {
           </div>
 
           <div className={styles.Buttons}>
-            <SkipPrevious />
+            <SkipPrevious onClick={e => { handleChange(false) }}/>
             {!props.playing && <PlayCircleIcon onClick={e => { if(Object.keys(props.currSong).length!==0) props.playHandler(true)} }/>}
             {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
-            <SkipNext />
+            <SkipNext onClick={e => { handleChange(true) }}/>
           </div>
         </ThemeProvider>
       </div >
