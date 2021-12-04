@@ -29,11 +29,14 @@ export const Player = (props) => {
           audio.current.currentTime = 0;
           setSlider(audio.current.currentTime);
           audio.current.play();
-          Timer();
         }
         else {
+          console.log("end ")
           props.playHandler(false)
           audio.current.pause();
+          clearInterval(interval.current);
+          audio.current.currentTime = 0;
+          setSlider(audio.current.currentTime);
         }
       } else {
         setSlider(audio.current.currentTime);
