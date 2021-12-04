@@ -9,43 +9,67 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export const Player = (props) => {
   const [slider, setSlider] = useState(0);
-  const [trackIndex, setTrackIndex] = useState(0);
   const [bool, setBool] = useState(false);
 
   //const { title, artist } = props.queue[0];
-  const audioRef = useRef (new Audio(props.audioSrc));
-  const intervalRef = useRef();
-  const isReady = useRef(false);
-  const { duration } = audioRef.current;
- 
+  const audio = useRef (new Audio(props.audioSrc));
+  const interval = useRef();
+  const ready = useRef(false);
+  const { duration } = audio.current;
+
+  const Timer = () => {
+    // Clear any timers already running
+    clearInterval(interval.current);
+
+    interval.current = setInterval(() => {
+      if (audio.current.ended) {
+        //toNextTrack();
+      } else {
+        setSlider(audio.current.currentTime);
+      }
+    }, [1000]);
+  };
+
+  const onScrub = (value) => {
+    // Clear any timers already running
+    clearInterval(interval.current);
+    audio.current.currentTime = value;
+    setSlider(audio.current.currentTime);
+    if(props.playing) Timer();
+  };
 
   useEffect(() => {
     
-    if (bool === props.playing){
-      audioRef.current.pause();
+    if (props.playing === true) {
+      if (ready.current) {
+        audio.current.play();
+        Timer();
+      } else {
+        // Set the ready ref as true for the next pass
+        ready.current = true;
+      }
+    }
+    else audio.current.pause();
+    
+  }, [props.playing])
 
-      audioRef.current = new Audio(props.audioSrc);
+  useEffect(() => {
+    
+      audio.current.pause();
+
+      audio.current = new Audio(props.audioSrc);
      ;
   
-      if (isReady.current ) {
-        audioRef.current.play();
+      if (ready.current ) {
+        audio.current.play();
+        Timer();
       } else {
-        // Set the isReady ref as true for the next pass
-        isReady.current = true;
+        // Set the ready ref as true for the next pass
+        ready.current = true;
       }
-    }
-    else if (props.playing === true) {
-      if (isReady.current) {
-        audioRef.current.play();
-      } else {
-        // Set the isReady ref as true for the next pass
-        isReady.current = true;
-      }
-    }
-    else audioRef.current.pause()
-    setBool(props.playing);
     
-  }, [props.queue, props.playing])
+    
+  }, [props.queue])
   
 
 
@@ -68,14 +92,14 @@ export const Player = (props) => {
         <p>Song playing: {props.currSong}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
-            <p style={{ textAlign: 'left' }}>{slider}%</p>
+            <p style={{ textAlign: 'left' }}>0:00</p>
             <div className={styles.sliderContainer}>
 
-              <Slider defaultValue={0} step={1} min={0} max={100} onChange={e => { setSlider(e.target.value) }} value={slider} />
+              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => onScrub(e.target.value)} value={slider} />
 
 
             </div>
-            <p style={{ textAlign: 'right' }}>{slider}%</p>
+            <p style={{ textAlign: 'right' }}>{Object.keys(props.currSong).length!==0 ? duration : ''}</p>
           </div>
 
           <div className={styles.Buttons}>
