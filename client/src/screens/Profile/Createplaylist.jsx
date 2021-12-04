@@ -26,6 +26,7 @@ export const Createplaylist = () => {
     }, [selectedFile])
 
     return (
+       
         <div className={styles.wrapper}>
             <label for="file-upload"> 
             <div className={styles.imageWrapper}>
@@ -63,5 +64,6 @@ export const Createplaylist = () => {
                 Search for a song;
             </div>
         </div>
+        
     )
 }

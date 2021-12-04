@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect,useRef} from 'react'
 import styles from './Player.module.scss';
 import Slider from '@mui/material/Slider';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
@@ -9,7 +9,36 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export const Player = (props) => {
   const [slider, setSlider] = useState(0);
+  const [trackIndex, setTrackIndex] = useState(0);
+
+  //const { title, artist } = props.queue[0];
+  const audioRef = useRef (new Audio(props.audioSrc));
+  const intervalRef = useRef();
+  const isReady = useRef(false);
+  const { duration } = audioRef.current;
+ 
+
+  useEffect(() => {
+    
+    audioRef.current.pause();
+
+    audioRef.current = new Audio(props.audioSrc);
+   ;
+
+    if (isReady.current) {
+      audioRef.current.play();
+
+    } else {
+      // Set the isReady ref as true for the next pass
+      isReady.current = true;
+    }
+  }, [props.queue])
   
+
+
+
+
+
 
   const theme = createTheme({
     palette: {
@@ -29,7 +58,7 @@ export const Player = (props) => {
             <p style={{ textAlign: 'left' }}>{slider}%</p>
             <div className={styles.sliderContainer}>
 
-              <Slider defaultValue={0} setp={1} min={0} max={100} onChange={e => { setSlider(e.target.value) }} value={slider} />
+              <Slider defaultValue={0} step={1} min={0} max={100} onChange={e => { setSlider(e.target.value) }} value={slider} />
 
 
             </div>
