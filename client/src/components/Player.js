@@ -38,7 +38,7 @@ export const Player = (props) => {
 
           <div className={styles.Buttons}>
             <SkipPrevious />
-            {!props.playing && <PlayCircleIcon onClick={e => { props.playHandler(true) }} />}
+            {!props.playing && <PlayCircleIcon onClick={e => { props.playHandler(true); }} />}
             {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
             <SkipNext />
           </div>

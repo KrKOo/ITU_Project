@@ -5,13 +5,23 @@ import Playlist from '../Profile/Playlist';
 import Search from '../Profile/Search';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Createplaylist } from '../Profile/Createplaylist';
 const Home = (props) => {
   const [page, setPage] = useState("Home");
   const [currPlaylist, setCurrPlaylist] = useState([]);
   const [currSong, setCurrSong] = useState([]);
   const [playing, setPlaying] = useState(false);
+  const [queue, setQueue] = useState(false);
+
+  useEffect(() => {
+    if (playing) console.log("Playing: " + queue)
+    else console.log("Pausing")
+}, [playing, queue]);
+
+  const queueHandler = (foo) => {
+    setQueue(foo)
+  }
   const songHandler = (foo) => {
     setCurrSong(foo)
   }
@@ -36,12 +46,12 @@ const Home = (props) => {
         />
         }
         {page==="NewPlaylist" && <Createplaylist/>}
-        {page==="Playlist" && <Playlist currPlaylist={currPlaylist} playing={playing} currSong={currSong} playHandler={playHandler} songHandler={songHandler}/>}
+        {page==="Playlist" && <Playlist queueHandler={queueHandler} currPlaylist={currPlaylist} playing={playing} currSong={currSong} playHandler={playHandler} songHandler={songHandler}/>}
         {page==="Search" && <Search/>}
         
       </div>
 
-      <Player playing={playing} playHandler={playHandler} currSong={currSong}/>
+      <Player playing={playing} queue={queue} playHandler={playHandler} currSong={currSong}/>
     </div>
   );
 };
