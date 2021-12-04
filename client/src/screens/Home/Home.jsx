@@ -30,7 +30,6 @@ const Home = (props) => {
   const indexHandler = (foo) => { 
     setqueueIndex(foo);
     setCurrSong(queue[foo]);
-    console.log("here");
   } 
   const songHandler = (foo) => {
     setCurrSong(foo)
