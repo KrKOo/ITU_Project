@@ -2,11 +2,13 @@ import styles from './Home.module.scss';
 import { Link ,Navigate} from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import Playlist from '../Profile/Playlist';
+import Login from '../Login/Login';
 import Search from '../Profile/Search';
 import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
 import { useState, useEffect } from 'react';
 import { Createplaylist } from '../Profile/Createplaylist';
+
 const Home = (props) => {
   const [page, setPage] = useState("Home");
   const [currPlaylist, setCurrPlaylist] = useState([]);
@@ -14,6 +16,7 @@ const Home = (props) => {
   const [playing, setPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
   const [queueIndex, setqueueIndex] = useState(0);
+  const [logged, setLogged] = useState(false)
 
   useEffect(() => {
     if (playing) {
@@ -34,6 +37,9 @@ const Home = (props) => {
   const songHandler = (foo) => {
     setCurrSong(foo)
   }
+  const logHandler = (foo) => {
+    setLogged(foo)
+  }
   const pageHandler = (foo) => {
     setPage(foo)
   }
@@ -43,7 +49,7 @@ const Home = (props) => {
   const playHandler = (foo) => {
     setPlaying(foo)
   }
-  return (
+  if(logged) return (
     <div className={styles.Home}>
       <div className={styles.flexRow}>
       {props.user.username==="" && <Navigate to={'/login' } />}
@@ -61,6 +67,13 @@ const Home = (props) => {
       </div>
 
       <Player playing={playing} queueIndex={queueIndex} indexHandler={indexHandler} audioSrc={!playing ? "":currSong.audioSrc} queue={queue} playHandler={playHandler} currSong={currSong}/>
+    </div>
+  );
+  //!!!!!!!!!!!!!!----------------logHandler treba potom v logine pouzit na nastavenie login state------------!!!!!!!!!!!!!
+  //este som to nespravil
+  else return(
+    <div>
+      <Login logHandler={logHandler}/>
     </div>
   );
 };
