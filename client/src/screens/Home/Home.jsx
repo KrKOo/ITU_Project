@@ -12,11 +12,14 @@ const Home = (props) => {
   const [currPlaylist, setCurrPlaylist] = useState([]);
   const [currSong, setCurrSong] = useState([]);
   const [playing, setPlaying] = useState(false);
-  const [queue, setQueue] = useState(false);
+  const [queue, setQueue] = useState([]);
 
   useEffect(() => {
-    if (playing) console.log("Playing: " + queue)
-    else console.log("Pausing")
+    if (playing) {
+      console.log("Playing: " + queue[0].title + " queue: ");
+      for (let i = 1; i < queue.length; i++) console.log(queue[i].title + ",");
+    }
+    else console.log("Pausing");
 }, [playing, queue]);
 
   const queueHandler = (foo) => {

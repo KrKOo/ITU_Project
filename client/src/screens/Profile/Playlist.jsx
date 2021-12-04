@@ -9,9 +9,8 @@ const Playlist = (props) => {
     const handleClick = (foo,index) => {
         if (props.currSong === foo) props.playHandler(!props.playing); 
         else {
-            props.songHandler(foo)
+            props.songHandler(tracks[index].title)
             props.playHandler(true);
-            let index =  Object.values(tracks).indexOf(index);
             console.log("index"+index);
             let queue = [];
             for (index; index < tracks.length; index++) queue.push(tracks[index]);
