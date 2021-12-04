@@ -10,6 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 export const Player = (props) => {
   const [slider, setSlider] = useState(0);
   const [trackIndex, setTrackIndex] = useState(0);
+  const [bool, setBool] = useState(false);
 
   //const { title, artist } = props.queue[0];
   const audioRef = useRef (new Audio(props.audioSrc));
@@ -20,19 +21,31 @@ export const Player = (props) => {
 
   useEffect(() => {
     
-    audioRef.current.pause();
+    if (bool === props.playing){
+      audioRef.current.pause();
 
-    audioRef.current = new Audio(props.audioSrc);
-   ;
-
-    if (isReady.current) {
-      audioRef.current.play();
-
-    } else {
-      // Set the isReady ref as true for the next pass
-      isReady.current = true;
+      audioRef.current = new Audio(props.audioSrc);
+     ;
+  
+      if (isReady.current ) {
+        audioRef.current.play();
+      } else {
+        // Set the isReady ref as true for the next pass
+        isReady.current = true;
+      }
     }
-  }, [props.queue])
+    else if (props.playing === true) {
+      if (isReady.current) {
+        audioRef.current.play();
+      } else {
+        // Set the isReady ref as true for the next pass
+        isReady.current = true;
+      }
+    }
+    else audioRef.current.pause()
+    setBool(props.playing);
+    
+  }, [props.queue, props.playing])
   
 
 
@@ -67,7 +80,7 @@ export const Player = (props) => {
 
           <div className={styles.Buttons}>
             <SkipPrevious />
-            {!props.playing && <PlayCircleIcon onClick={e => { props.playHandler(true); }} />}
+            {!props.playing && <PlayCircleIcon onClick={e => { if(Object.keys(props.currSong).length!==0) props.playHandler(true)} }/>}
             {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
             <SkipNext />
           </div>
