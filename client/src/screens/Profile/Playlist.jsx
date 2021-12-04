@@ -10,6 +10,10 @@ const Playlist = (props) => {
         else {
             props.songHandler(foo)
             props.playHandler(true);
+            let index = songs.indexOf(foo);
+            let queue = [];
+            for (index; index < songs.length; index++) queue.push(songs[index]);
+            props.queueHandler(queue);
         }
         
     }
