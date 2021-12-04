@@ -7,6 +7,7 @@
   height: max;
 
   button {
+    display: inline-block;
     padding: 10px;
     color: inherit;
     width: 100px;
@@ -25,6 +26,29 @@
   form {
     display: flex;
     flex-direction: column;
+  }
+
+  .inputContainer {
+    padding: 15px;
+    label,
+    input {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    }
+  }
+  .submitButton {
+    background: $primary;
+    border: none;
+    margin-top: 20px;
+    padding: 10px 10px;
+    font-size: 1em;
+    border-radius: 10px;
+
+    &:hover {
+      filter: brightness(85%);
+      cursor: pointer;
+    }
   }
 }
 
