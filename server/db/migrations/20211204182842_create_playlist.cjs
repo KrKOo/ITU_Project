@@ -3,10 +3,10 @@ exports.up = function (knex) {
   return knex.schema
     .createTable('playlist', function (table) {
       table.increments('id');
-      table.integer('username').unsigned();
+      table.integer('userId').unsigned();
       table.string('name', 255).notNullable();
+      table.string('imagePath', 255).notNullable();
     })
-
 };
 
 exports.down = function (knex) {

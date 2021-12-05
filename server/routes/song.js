@@ -5,19 +5,23 @@ const router = express.Router();
 
 router.get('/getAll', function (req, res) {
   knex('song')
-    .select('name', 'genre', 'username', 'id')
+    .select('name', 'argist', 'album', 'username', 'id')
     .then(
       (data) => {
         res.send(data);
       }
     )
+    .catch(e => {
+      console.error(e);
+      res.sendStatus(500);
+    })
 });
 
 router.get('/getInfoById', function (req, res) {
   const songID = req.query.id;
 
   knex('song')
-    .select('name', 'genre', 'username')
+    .select('name', 'artist', 'album', 'username')
     .where({ id: req.query.id })
     .then(
       (data) => {
@@ -53,7 +57,7 @@ router.get('/search', function (req, res) {
   console.log(songName);
 
   knex('song')
-    .select('name', 'genre', 'username', 'id')
+    .select('name', 'artist', 'album', 'username', 'id')
     .where('name', 'like', `%${songName}%`)
     .then(
       (data) => {
@@ -71,9 +75,9 @@ router.get('/search', function (req, res) {
 router.post('/upload', function (req, res) {
   const songName = req.body.name;
   const username = req.body.username;
-  const genre = req.body.genre;
+  const artist = req.body.artist;
+  const album = req.body.album;
   const file = req.files.file;
-
 
   const uploadPath = path.join(path.resolve(), 'musicFiles', songName + path.extname(file.name))
 
@@ -81,7 +85,9 @@ router.post('/upload', function (req, res) {
     if (err)
       return res.status(500).send(err);
 
-    knex('song').insert({ name: songName, username: username, genre: genre, path: songName + path.extname(file.name) }).then((data) => console.log(data))
+    knex('song')
+      .insert({ name: songName, username: username, artist: artist, album: album, path: songName + path.extname(file.name) })
+      .then((data) => console.log(data))
     res.sendStatus(200);
   });
 });

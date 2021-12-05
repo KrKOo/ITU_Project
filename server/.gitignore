@@ -63,4 +63,6 @@ typings/
 
 
 musicFiles/*
+playlistImages/*
+
 *.sqlite3
