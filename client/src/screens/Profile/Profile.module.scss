@@ -45,6 +45,39 @@
     }
   }
 
+  .inputContainer {
+    padding: 15px;
+    label,
+    input {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    }
+
+    label {
+      padding-bottom: 5px;
+    }
+
+    input {
+      padding: 5px 10px;
+      box-shadow: 5px 5px 5px black;
+    }
+
+    .submitButton {
+      background: $primary;
+      border: none;
+      margin-top: 20px;
+      padding: 10px 10px;
+      font-size: 1em;
+      border-radius: 10px;
+
+      &:hover {
+        filter: brightness(85%);
+        cursor: pointer;
+      }
+    }
+  }
+
   .profileInfo {
     display: flex;
     flex: row;
