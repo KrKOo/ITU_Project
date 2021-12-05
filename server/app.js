@@ -1,3 +1,9 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';

@@ -1,3 +1,9 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 import knex from 'knex'
 import config from './knexfile.cjs'
 
