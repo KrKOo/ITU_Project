@@ -6,18 +6,29 @@ const Search = (props) => {
   const [album, setAlbum] = useState('');
   const [artist, setArtist] = useState('');
   const [release, setRelease] = useState('');
-
+  const [selectedFile, setSelectedFile] = useState({
+    name: '',
+    type: '',
+    size: '',
+    lastModifiedDate: '',
+  });
   const SubmitUpload = async (e) => {
     e.preventDefault();
     if (title === '' || album === '' || artist === '' || release === '')
       alert('Please fill in all upload details');
     else {
-
-
-      const response = await axios.post('/api/song/upload', {
+      const formData = new FormData();
+    
+      // Update the formData object
+      formData.append("file",selectedFile);
+      formData.append("name",title);
+      formData.append("username",props.user.username);
+      formData.append("album",album);
+      formData.append("artist",artist);
       
-        name:title,
-        artist:artist
+      const response = await axios.post('/api/song/upload', {
+        formData
+        
       })    
       
       .then(function (response) {
@@ -30,6 +41,13 @@ const Search = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    }
+  };
+  
+  const uploadHandler = (event) => {
+    if (event.target.files[0] !== undefined) {
+      setSelectedFile(event.target.files[0]);
+
     }
   };
 
@@ -80,7 +98,12 @@ const Search = (props) => {
         </div>
         <div className={styles.inputContainer}>
           <label for="uploadButton">Upload</label>
-          <input id="uploadButton" type='file' />
+          <input
+            id='file-upload'
+            accept='audio/*'
+            type='file'
+            onChange={uploadHandler}
+          />
         </div>
 
         <div className={styles.submitContainer}>
