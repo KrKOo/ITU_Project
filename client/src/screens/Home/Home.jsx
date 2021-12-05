@@ -22,6 +22,7 @@ const Home = (props) => {
   const [playing, setPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
   const [queueIndex, setqueueIndex] = useState(0);
+  const [update, setUpdate] = useState(0);
 
   const [user, setUser] = useState({ username: '' });
   const [logg, setLogg] = useState(false);
@@ -42,7 +43,9 @@ const Home = (props) => {
       setUser(foundUser);
     }
   }, [logg]);
-
+  const updateHandler = (foo) => {
+    setUpdate(foo);
+  };
   const queueHandler = (foo, index) => {
     setQueue(foo);
     setqueueIndex(index);
@@ -72,6 +75,7 @@ const Home = (props) => {
       <div className={styles.Home}>
         <div className={styles.flexRow}>
           <SidePanel
+            update={update}
             className={styles.SidePanel}
             page={page}
             user={user}
@@ -86,7 +90,7 @@ const Home = (props) => {
               setLoggHandler={setLoggHandler}
             />
           )}
-          {page === 'NewPlaylist' && <Createplaylist user={user} />}
+          {page === 'NewPlaylist' && <Createplaylist user={user} updateHandler={updateHandler} update={update} />}
           {page === 'Playlist' && (
             <Playlist
               queueHandler={queueHandler}
