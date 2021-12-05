@@ -18,7 +18,7 @@ const Search = (props) => {
   const [add, setAdd] = useState(false);
   const [showPlayists, setShowPlayists] = useState(false);
   const [songId, setSongId] = useState();
-  const [playlistId, setPlaylistId] = useState();
+  const [playlistId, setPlaylistId] = useState(false);
 
   const [songs, setSongs] = useState([]);
   const [playlists, setPlaylists] = useState([]);
@@ -56,7 +56,7 @@ const Search = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [props.user.id]);
 
   useEffect(() => {
     axios
@@ -125,24 +125,31 @@ const Search = (props) => {
           </button>
         </div>
 
-        <div ref={ref}>
+        <div ref={ref} className={styles.UploadScreen}>
           {add && <Upload className={styles.Upload} user={props.user} />}
         </div>
+
+        <ul className={styles.songList}>
+          {songs.map((item, index) => (
+            <li key={index}>
+              <p className={styles.songName}>{item.name}</p>
+              <p className={styles.artist}>{item.artist}</p>
+              <div className={styles.buttonContainer}>
+                <button
+                  onClick={(e) => {
+                    setShowPlayists(true);
+                    setSongId(item.id);
+                  }}>
+                  Add to playlist
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      {songs.map((item, index) => (
-        <li key={index}>
-          {item.name} {item.artist}
-          <button
-            onClick={(e) => {
-              setShowPlayists(true);
-              setSongId(item.id);
-            }}>
-            Add to playlist
-          </button>
-        </li>
-      ))}
+
       {showPlayists && (
-        <div>
+        <div className={styles.playlists}>
           <ul>
             {playlists.map((playlist, index) => (
               <button
