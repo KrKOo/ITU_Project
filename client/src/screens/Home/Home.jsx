@@ -43,9 +43,9 @@ const Home = (props) => {
 
     }, [logg]);
  
-  const queueHandler = (foo) => {
+  const queueHandler = (foo, index) => {
     setQueue(foo);
-    setqueueIndex(0);
+    setqueueIndex(index);
   };
   const indexHandler = (foo) => {
     setqueueIndex(foo);
@@ -107,7 +107,7 @@ const Home = (props) => {
         playing={playing}
         queueIndex={queueIndex}
         indexHandler={indexHandler}
-        audioSrc={!playing ? '' : currSong.audioSrc}
+        audioSrc={Object.keys(currSong).length===0 ? '' : currSong.audioSrc}
         queue={queue}
         playHandler={playHandler}
         currSong={currSong}

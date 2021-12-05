@@ -3,6 +3,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
+import fileUpload from 'express-fileupload';
+
 import authRouter from './routes/auth.js';
 import playlistRouter from './routes/playlist.js';
 import songRouter from './routes/song.js';
@@ -13,6 +15,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(fileUpload());
 
 
 app.use(express.static(path.join(path.resolve(), "..", "client", "build")));
