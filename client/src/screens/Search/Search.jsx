@@ -31,6 +31,15 @@ const Search = (props) => {
       setAdd(false);
     }
   };
+  const handleClick = (foo, index) => {
+    if (props.currSong === foo) props.playHandler(!props.playing);
+    else {
+      //console.log(foo)
+      props.songHandler(foo);
+      props.queueHandler(songs, index);
+      props.playHandler(true);
+    }
+  };
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -76,7 +85,7 @@ const Search = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-  }, [searchVal]);
+  }, [searchVal, props.update]);
 
   const addSongToPlaylist = (playlistID) => {
     axios
@@ -125,13 +134,13 @@ const Search = (props) => {
           </button>
         </div>
 
-        <div ref={ref} className={styles.UploadScreen}>
-          {add && <Upload className={styles.Upload} user={props.user} />}
+        <div ref={ref}>
+          {add && <Upload className={styles.Upload} user={props.user} updateHandler={props.updateHandler} update={props.update}/>}
         </div>
 
         <ul className={styles.songList}>
           {songs.map((item, index) => (
-            <li key={index}>
+            <li key={index}  onClick={e => {handleClick(item, index)}}>
               <p className={styles.songName}>{item.name}</p>
               <p className={styles.artist}>{item.artist}</p>
               <div className={styles.buttonContainer}>
@@ -147,7 +156,7 @@ const Search = (props) => {
           ))}
         </ul>
       </div>
-
+      
       {showPlayists && (
         <div className={styles.playlists}>
           <ul>
