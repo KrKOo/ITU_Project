@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/getAll', function (req, res) {
   knex('song')
-    .select('name', 'argist', 'album', 'username', 'id')
+    .select('name', 'artist', 'album', 'username', 'id')
     .then(
       (data) => {
         res.send(data);
@@ -88,7 +88,7 @@ router.post('/upload', function (req, res) {
   const uploadPath = path.join(path.resolve(), 'musicFiles', songName + path.extname(file.name))
 
   file.mv(uploadPath, function (err) {
-    if (err){
+    if (err) {
       console.log(err)
       return res.status(500).send(err);
     }
