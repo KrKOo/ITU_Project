@@ -42,33 +42,31 @@ const Login = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
-    if ((confirmPassword === password)|| showLogin ){
+
+    if (confirmPassword === password || showLogin) {
       //console.log(username + ', ' + password);
       console.log('here');
       if (username === '' || password === '') {
         alert('Please fill in the login form');
-       
       } else {
         var endpoint = showLogin ? '/api/auth/login ' : '/api/auth/register ';
 
-      const response = await axios.post(endpoint, {
-        username: username,
-        password: password,
-        email: email,
-      });         
-      // set the state of the user
-      
-      props.setLoggHandler(true);
-      if (response.status=== 200) {
-        
-        sessionStorage.setItem('logged_user', JSON.stringify(response.data));
-      } else {
-        alert('Failed to log in, wrong credentials');
-      }
+        const response = await axios.post(endpoint, {
+          username: username,
+          password: password,
+          email: email,
+        });
+        // set the state of the user
+
+        props.setLoggHandler(true);
+        if (response.status === 200) {
+          console.log('RESPONSE', response.data);
+          sessionStorage.setItem('logged_user', JSON.stringify(response.data));
+        } else {
+          alert('Failed to log in, wrong credentials');
+        }
       }
     }
-    
   };
 
   return (
