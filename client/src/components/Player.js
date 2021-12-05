@@ -1,4 +1,4 @@
-import React, { useState ,useEffect,useRef} from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import styles from './Player.module.scss';
 import Slider from '@mui/material/Slider';
 import SkipPrevious from '@mui/icons-material/SkipPrevious';
@@ -12,7 +12,7 @@ export const Player = (props) => {
   const [bool, setBool] = useState(false);
 
   //const { title, artist } = props.queue[0];
-  const audio = useRef (new Audio(props.audioSrc));
+  const audio = useRef(new Audio(props.audioSrc));
   const interval = useRef();
   const ready = useRef(false);
   const { duration } = audio.current;
@@ -23,7 +23,7 @@ export const Player = (props) => {
 
     interval.current = setInterval(() => {
       if (audio.current.ended) {
-        if(props.queueIndex + 1 < props.queue.length) {
+        if (props.queueIndex + 1 < props.queue.length) {
           props.indexHandler(props.queueIndex + 1);
           clearInterval(interval.current);
           audio.current.currentTime = 0;
@@ -49,11 +49,11 @@ export const Player = (props) => {
     clearInterval(interval.current);
     audio.current.currentTime = value;
     setSlider(audio.current.currentTime);
-    if(props.playing) Timer();
+    if (props.playing) Timer();
   };
 
   useEffect(() => {
-    
+
     if (props.playing === true) {
       if (ready.current) {
         audio.current.play();
@@ -64,27 +64,27 @@ export const Player = (props) => {
       }
     }
     else audio.current.pause();
-    
+
   }, [props.playing])
 
   useEffect(() => {
-    
-      audio.current.pause();
 
-      audio.current = new Audio(props.audioSrc);
-     ;
-  
-      if (ready.current ) {
-        audio.current.play();
-        Timer();
-      } else {
-        // Set the ready ref as true for the next pass
-        ready.current = true;
-      }
-    
-    
+    audio.current.pause();
+
+    audio.current = new Audio(props.audioSrc);
+    ;
+
+    if (ready.current) {
+      audio.current.play();
+      Timer();
+    } else {
+      // Set the ready ref as true for the next pass
+      ready.current = true;
+    }
+
+
   }, [props.queue, props.currSong])
-  
+
 
 
 
@@ -100,8 +100,8 @@ export const Player = (props) => {
   });
 
   const handleChange = (value) => {
-    if(value) {
-      if(props.queueIndex + 1 < props.queue.length) {
+    if (value) {
+      if (props.queueIndex + 1 < props.queue.length) {
         props.indexHandler(props.queueIndex + 1);
         clearInterval(interval.current);
         audio.current.currentTime = 0;
@@ -119,7 +119,7 @@ export const Player = (props) => {
       }
     }
     else {
-      if(props.queueIndex - 1 >= 0) {
+      if (props.queueIndex - 1 >= 0) {
         props.indexHandler(props.queueIndex - 1);
         clearInterval(interval.current);
         audio.current.currentTime = 0;
@@ -140,7 +140,7 @@ export const Player = (props) => {
 
 
   return (
-    <div className={styles.Player}>
+    <div className={`${styles.Player} ${props.className}`}>
       <div className={styles.controlsContainer}>
         <p>Song playing: {props.currSong.title}</p>
         <ThemeProvider theme={theme}>
@@ -152,14 +152,14 @@ export const Player = (props) => {
 
 
             </div>
-            <p style={{ textAlign: 'right' }}>{Object.keys(props.currSong).length!==0 ? duration : ''}</p>
+            <p style={{ textAlign: 'right' }}>{Object.keys(props.currSong).length !== 0 ? duration : ''}</p>
           </div>
 
           <div className={styles.Buttons}>
-            <SkipPrevious onClick={e => { handleChange(false) }}/>
-            {!props.playing && <PlayCircleIcon onClick={e => { if(Object.keys(props.currSong).length!==0) props.playHandler(true)} }/>}
+            <SkipPrevious onClick={e => { handleChange(false) }} />
+            {!props.playing && <PlayCircleIcon onClick={e => { if (Object.keys(props.currSong).length !== 0) props.playHandler(true) }} />}
             {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
-            <SkipNext onClick={e => { handleChange(true) }}/>
+            <SkipNext onClick={e => { handleChange(true) }} />
           </div>
         </ThemeProvider>
       </div >
