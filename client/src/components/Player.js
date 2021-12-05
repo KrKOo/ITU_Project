@@ -153,14 +153,14 @@ export const Player = (props) => {
         <p>Song playing: {props.currSong.name}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
-            <p style={{ textAlign: 'left' }}>0:00</p>
+            
             <div className={styles.sliderContainer}>
 
               <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => {if (Object.keys(props.currSong).length !== 0) change(e.target.value)}} value={slider} />
 
 
             </div>
-            <p style={{ textAlign: 'right' }}>{Object.keys(props.currSong).length !== 0 ? duration : ''}</p>
+            
           </div>
 
           <div className={styles.Buttons}>
