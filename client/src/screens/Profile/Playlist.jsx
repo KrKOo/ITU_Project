@@ -37,7 +37,8 @@ const Playlist = (props) => {
             props.songHandler(tracks[index])
             //console.log("index"+index);
             let queue = [];
-            for (index; index < tracks.length; index++) queue.push(tracks[index]);
+            //for (index; index < tracks.length; index++)
+            queue.push(tracks);
             props.queueHandler(queue);
             props.playHandler(true);
         }
