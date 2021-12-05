@@ -149,15 +149,34 @@
   width: 300px;
 }
 
-.playlists {
+.Playlists {
   position: absolute;
-  top: 50%;
+  transform: translate(-50%);
+  top: 40%;
   left: 50%;
-  background: red;
-  ul {
+  background: #181818da;
+  width: 200px;
+  padding: 10px;
+  border-radius: 20px;
+  .playlistButtonContainer {
     display: flex;
+    flex-direction: column;
 
     button {
+      box-shadow: 5px 5px 5px black;
+      font-size: 1em;
+      margin: 10px;
+      padding: 10px;
+      background: $dark-2;
+      border: none;
+      color: $font-1;
+      border-radius: 10px;
+
+      &:hover {
+        cursor: pointer;
+        background: white;
+        color: black;
+      }
     }
   }
 }
