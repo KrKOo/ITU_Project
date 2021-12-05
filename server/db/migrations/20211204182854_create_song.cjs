@@ -1,3 +1,9 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 exports.up = function (knex) {
   knex.raw('PRAGMA foreign keys = ON;');
 

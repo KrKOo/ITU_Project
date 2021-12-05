@@ -18,32 +18,33 @@ const Search = (props) => {
       alert('Please fill in all upload details');
     else {
       const formData = new FormData();
-    
+
       // Update the formData object
-      formData.append("file",selectedFile);
-      formData.append("name",title);
-      formData.append("username",props.user.username);
-      formData.append("album",album);
-      formData.append("artist",artist);
-      
-      const response = await axios.post('/api/song/upload', {
-        formData
-        
-      })    
-      
-      .then(function (response) {
-        if(response.status===200){
-          console.log(response.data);
-        }else{
-          alert("Failed to upload")
-        }
+      formData.append("file", selectedFile);
+      formData.append("name", title);
+      formData.append("username", props.user.username);
+      formData.append("album", album);
+      formData.append("artist", artist);
+
+      axios({
+        method: "post",
+        url: "/api/song/upload",
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
       })
-      .catch(function (error) {
-        console.log(error);
-      });
+        .then(function (response) {
+          if (response.status === 200) {
+            console.log(response.data);
+          } else {
+            alert("Failed to upload")
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
   };
-  
+
   const uploadHandler = (event) => {
     if (event.target.files[0] !== undefined) {
       setSelectedFile(event.target.files[0]);

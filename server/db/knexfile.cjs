@@ -1,4 +1,9 @@
-// Update with your config settings.
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 var path = require("path")
 
 module.exports = {
