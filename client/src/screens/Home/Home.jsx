@@ -52,6 +52,7 @@ const Home = (props) => {
     setCurrSong(queue[foo]);
   };
   const songHandler = (foo) => {
+    console.log(foo)
     setCurrSong(foo);
   };
   const pageHandler = (foo) => {
@@ -118,7 +119,7 @@ const Home = (props) => {
           playing={playing}
           queueIndex={queueIndex}
           indexHandler={indexHandler}
-          audioSrc={Object.keys(currSong).length === 0 ? '' : currSong.audioSrc}
+          audioSrc={Object.keys(currSong).length === 0 ? '' : `/api/song/getFileById?id=${currSong.id}`}
           queue={queue}
           playHandler={playHandler}
           currSong={currSong}

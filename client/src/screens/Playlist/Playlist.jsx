@@ -16,13 +16,12 @@ const Playlist = (props) => {
   const handleClick = (foo, index) => {
     if (props.currSong === foo) props.playHandler(!props.playing);
     else {
-      props.songHandler(tracks[index]);
+      //console.log(foo)
+      props.songHandler(foo);
       //console.log("index"+index);
       //console.log("index"+index);
-      let queue = [];
       //for (index; index < tracks.length; index++)
-      queue.push(tracks);
-      props.queueHandler(tracks, index);
+      props.queueHandler(playlist, index);
       props.playHandler(true);
     }
   };
