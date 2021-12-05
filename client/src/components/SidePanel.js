@@ -18,9 +18,8 @@ export const SidePanel = (props) => {
       })
   }, [])
 
-  const numbers = ["Metal", "Rap", "Pop", "Cock", "Sock"];
   const listItems = playlists.map((item, index) => (
-    <button className={props.currPlaylist === item ? styles.activeButton : ""}
+    <button className={props.currPlaylist === item.name ? styles.activeButton : ""}
       onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(item) }}>
       <li key={index}> {item.name} </li>
     </button>
