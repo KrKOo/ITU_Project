@@ -36,6 +36,9 @@ export const Createplaylist = (props) => {
       .then(function (response) {
         if (response.status === 200) {
           console.log(response.data);
+          console.log(props.update);
+          props.updateHandler(props.update + 1);
+          console.log(props.update);
         } else {
           alert("Failed to upload")
         }

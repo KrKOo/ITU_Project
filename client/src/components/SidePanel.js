@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import styles from './SidePanel.module.scss';
 
 export const SidePanel = (props) => {
   const [playlists, setPlaylists] = useState([]);
 
-  useState(() => {
+  useEffect(() => {
+    console.log("pls");
     axios.get('/api/playlist/getByUserId', {
       params: {
         id: props.user.id
@@ -16,7 +17,7 @@ export const SidePanel = (props) => {
       .catch((e) => {
         console.error(e);
       })
-  }, [])
+  }, [props.update])
 
   const listItems = playlists.map((item, index) => (
     <button className={props.currPlaylist === item.name ? styles.activeButton : ""}
