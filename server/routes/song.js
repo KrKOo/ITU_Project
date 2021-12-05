@@ -88,9 +88,10 @@ router.post('/upload', function (req, res) {
   const uploadPath = path.join(path.resolve(), 'musicFiles', songName + path.extname(file.name))
 
   file.mv(uploadPath, function (err) {
-    if (err)
+    if (err){
+      console.log(err)
       return res.status(500).send(err);
-
+    }
     knex('song')
       .insert({ name: songName, username: username, artist: artist, album: album, path: songName + path.extname(file.name) })
       .then((data) => console.log(data))

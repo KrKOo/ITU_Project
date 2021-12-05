@@ -7,24 +7,51 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-
+import axios from 'axios';
 import styles from './Createplaylist.module.scss';
 
-export const Createplaylist = () => {
-  const [playlistName, setPlaylistName] = useState(false);
+export const Createplaylist = (props) => {
+  const [playlistName, setPlaylistName] = useState("");
   const [isImagePicked, setIsImagePicked] = useState(false);
-  const [selectedFile, setSelectedFile] = useState({
-    name: '',
-    type: '',
-    size: '',
-    lastModifiedDate: '',
-  });
-  const createHandler = () => {};
+  const [selectedFile, setSelectedFile] = useState();
+
+
+  const createHandler =async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    // Update the formData object/
+    
+    formData.append("image", selectedFile);
+    formData.append("name", playlistName);
+    formData.append("userID", props.user.id);
+    
+
+    axios({
+      method: "post",
+      url: "/api/playlist/create",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log(response.data);
+        } else {
+          alert("Failed to upload")
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
+      
+    
+  };
 
   const changeHandler = (event) => {
     if (event.target.files[0] !== undefined) {
-      setSelectedFile(URL.createObjectURL(event.target.files[0]));
-      setIsImagePicked(true);
+      setSelectedFile(event.target.files[0]);
+     
     }
   };
 
@@ -55,10 +82,10 @@ export const Createplaylist = () => {
             type='text'
             placeholder='Playlist name'
             required
-            onChange={setPlaylistName}
-            pattern='^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$'
+            onChange={e=>{ setPlaylistName(e.target.value)}}
+            //pattern='^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$'
             title='My_Playlist.5'></input>
-          <input type='submit' value={'Create'} onClick={createHandler()} />
+          <input type='submit' value={'Create'} onClick={createHandler} />
         </form>
       </div>
 
