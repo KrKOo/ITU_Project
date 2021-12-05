@@ -158,17 +158,17 @@ const Search = (props) => {
       </div>
       
       {showPlayists && (
-        <div className={styles.playlists}>
-          <ul>
-            {playlists.map((playlist, index) => (
+        <div className={styles.Playlists}>
+          {playlists.map((playlist, index) => (
+            <div className={styles.playlistButtonContainer}>
               <button
                 onClick={(e) => {
                   addSongToPlaylist(playlist.id);
                 }}>
-                <li key={index}>{playlist.name}</li>
+                {playlist.name}
               </button>
-            ))}
-          </ul>
+            </div>
+          ))}
         </div>
       )}
     </div>

@@ -7,62 +7,58 @@
 
 @import 'src/assets/styles/colors.scss';
 
-.wrapper {
+.CreatePlaylist {
   background: $dark-1;
-  display: flex;
   color: $font-1;
   width: 100%;
   height: max;
-  justify-content: center;
+  font-family: $primaryFont;
+  text-align: center;
 
-  vertical-align: middle;
-  padding-top: 114px;
-  b {
-    display: block;
-    padding: auto;
-    font-size: xx-large;
-  }
-  input[type='text'] {
-    font-size: x-large;
-    width: 1000px;
-    height: 40px;
-    border: 2px solid $primary;
-    border-radius: 5px;
-  }
-  input[type='submit'] {
-    position: relative;
-    color: inherit;
+  .playlistControl {
+    margin-top: 100px;
+    input[type='text'] {
+      font-size: 1.4em;
+      border-radius: 30px;
+      width: 40%;
+      max-width: 1000px;
+      padding: 10px;
+      background: $dark-2;
+      border: none;
+      border-radius: 30px;
+      color: $font-1;
+      outline: none;
+      padding: 20px;
+      &:focus {
+        background: white;
+        color: black;
+      }
+    }
 
-    height: 40px;
-    width: 100px;
-    background: $dark-2;
-    border: none;
-    font-size: 1em;
-    &:hover {
-      filter: brightness(85%);
-      cursor: pointer;
+    p {
+      font-size: 1.6em;
     }
   }
-  .imageWrapper {
-    height: 200px;
-    width: 200px;
-    margin: 10px;
+}
+
+.submitButton {
+  margin-top: 30px;
+  background: $primary;
+  padding: 10px 30px;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px black;
+  &:hover {
+    background: white;
+    color: black;
     cursor: pointer;
-    background: $dark-2;
-    border: none;
-    img {
-      height: inherit;
-      width: inherit;
-    }
+  }
+}
 
-    h1 {
-      position: absolute;
-      padding-top: 55px;
-      padding-left: 30px;
-      transform: rotate(45deg);
-    }
-  }
-  input[type='file'] {
-    display: none;
-  }
+.contentContainer {
+  width: 90%;
+  max-width: 1400px;
+  display: block;
+  margin: 0 auto;
 }
