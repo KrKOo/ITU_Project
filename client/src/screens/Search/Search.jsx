@@ -20,6 +20,8 @@ const Search = (props) => {
   const [songId, setSongId] = useState();
   const [playlistId, setPlaylistId] = useState();
 
+  const [songs, setSongs] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
 
   const ref = useRef(null);
   //-----Stavy pre upload-------
@@ -37,63 +39,62 @@ const Search = (props) => {
     };
   });
 
+  useEffect(() => {
+    axios
+      .get('/api/playlist/getByUserId', {
+        params: {
+          id: props.user.id,
+        },
+      })
+      .then(function (response) {
+        if (response.status === 200) {
+          setPlaylists(response.data);
+        } else {
+          alert('Failed to get playlists');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
-    if(searchVal!==""){
-    const response =  axios.get('/api/song/getAll ') 
+    axios
+      .get('/api/song/search', {
+        params: {
+          name: searchVal,
+        },
+      })
       .then(function (response) {
-        if(response.status===200){
+        if (response.status === 200) {
           console.log(response.data);
-        }else{
-          alert("Failed to get songs")
+          setSongs(response.data);
+        } else {
+          alert('Failed to get songs');
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-    }
+  }, [searchVal]);
 
-  },[searchVal]);
-  
-
-  const addSongToPlaylist= ()=>{
-    const response =  axios.post('/api/playlist/addSong  ' ,{
-      songID:songId,
-      playlistID:playlistId
-    })
+  const addSongToPlaylist = (playlistID) => {
+    axios
+      .post('/api/playlist/addSong', {
+        songID: songId,
+        playlistID: playlistID,
+      })
       .then(function (response) {
-        if(response.status===200){
+        if (response.status === 200) {
           console.log(response.data);
-        }else{
-          alert("Failed to add song to playlist")
+        } else {
+          alert('Failed to add song to playlist');
         }
       })
       .catch(function (error) {
         console.log(error);
       });
-    }
-  
- 
-  
-  
-  const tracks = [{artist:"OSBringer",title:"bysbys"}, {artist:"Fekete",title:"xdd"}, {artist:"Fekete",title:"xdd"}, {artist:"Fekete",title:"xdd"}, {artist:"Fekete",title:"xdd"}]
-
-  const listItems = Object.values(tracks).map((item, index) => (
-    <li
-     >
-      {' '}
-      {item.title} {item.artist} 
-      <button onClick={e=> {setShowPlayists(true); setSongId(item.id);}} >Add to playlist</button> 
-      {' '}
-    </li>
-  ));
-
-  const number = ["Metal", "Rap", "Pop", "Cock", "Sock"];
-  const playlistItems = number.map((number, index) => ( 
-    <button  onClick={e => { setPlaylistId(playlistId);addSongToPlaylist(); }}> <li key={index}> {number} </li></button>
-  ));
-
-
+  };
 
   return (
     <div className={`${styles.Search} ${props.className}`}>
@@ -124,12 +125,36 @@ const Search = (props) => {
           </button>
         </div>
 
-        <div ref={ref}>{add && <Upload className={styles.Upload} user={props.user} />}</div>
+        <div ref={ref}>
+          {add && <Upload className={styles.Upload} user={props.user} />}
+        </div>
       </div>
-      <ul >{listItems}</ul>
-      {showPlayists &&<div>
-        <ul >{playlistItems}</ul>
-        </div>}
+      {songs.map((item, index) => (
+        <li key={index}>
+          {item.name} {item.artist}
+          <button
+            onClick={(e) => {
+              setShowPlayists(true);
+              setSongId(item.id);
+            }}>
+            Add to playlist
+          </button>
+        </li>
+      ))}
+      {showPlayists && (
+        <div>
+          <ul>
+            {playlists.map((playlist, index) => (
+              <button
+                onClick={(e) => {
+                  addSongToPlaylist(playlist.id);
+                }}>
+                <li key={index}>{playlist.name}</li>
+              </button>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
