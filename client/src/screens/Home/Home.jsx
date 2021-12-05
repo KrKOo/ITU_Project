@@ -99,7 +99,7 @@ const Home = (props) => {
             songHandler={songHandler}
           />
         )}
-        {page === 'Search' && <Search />}
+        {page === 'Search' && <Search user={user}/>}
       </div>
 
       <Player

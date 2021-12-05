@@ -33,7 +33,7 @@ const Search = (props) => {
 
   useEffect(() => {
     if(searchVal!==""){
-      const response =  axios.get('/api/song/getAll ')    
+    const response =  axios.get('/api/song/getAll ') 
       .then(function (response) {
         if(response.status===200){
           console.log(response.data);
@@ -117,7 +117,7 @@ const Search = (props) => {
           </button>
         </div>
 
-        <div ref={ref}>{add && <Upload className={styles.Upload} />}</div>
+        <div ref={ref}>{add && <Upload className={styles.Upload} user={props.user} />}</div>
       </div>
       <ul >{listItems}</ul>
       {showPlayists &&<div>
