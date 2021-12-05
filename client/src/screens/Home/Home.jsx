@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Home.jsx
+ * Autori: Ľuboš Martinček (xmarti96)
+ *
+ */
+
 import styles from './Home.module.scss';
 import { Link, Navigate } from 'react-router-dom';
 import Profile from '../Profile/Profile';
