@@ -6,7 +6,43 @@
   width: 100%;
   height: max;
   font-family: $primaryFont;
+  button{
+    float: right;
+    color: inherit;
 
+    height: 40px;
+    width: 100px;
+    background: $dark-2;
+    border: none;
+    font-size: 1em;
+    &:hover {
+      filter: brightness(85%);
+      cursor: pointer;
+    }
+  }
+  li {
+    background-color: rgb(22, 22, 22);
+  
+    height: 40px;
+    padding-left: 15%;
+    text-align: left;
+    
+    vertical-align: center;
+    &:hover {
+      filter: brightness(85%);
+      cursor: pointer;
+    }
+  }
+  
+  ul {
+   
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+    padding-top: 50px;
+    
+  }
   .contentContainer {
     width: 90%;
     max-width: 1400px;
