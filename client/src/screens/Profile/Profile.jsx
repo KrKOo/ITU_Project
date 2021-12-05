@@ -13,7 +13,9 @@ const Profile = (props) => {
   const [newDetails, setNewDetails] = useState('');
   const [settings, setSettings] = useState(false);
   const [playlistList, setPlaylistList] = useState(false);
-  const [changeMail, setChangeMail] = useState(false);
+  const [newMail, setnewMail] = useState("@");
+  const [newPwd, setnewPwd] = useState("New Password");
+  const [confNewPwd, setConfNewPwd] = useState("Repeat New Password");
   const [image, setImage] = useState();
  
   useEffect(() => {
@@ -38,9 +40,12 @@ const Profile = (props) => {
     }); 
   }, [props.user]);
 
-
-   
-
+  const SubmitPwd = async e => {
+    console.log("Changing pwd");
+  }
+  const SubmitMail = async e => {
+    console.log("Changing mail");
+  } 
 
 
 
@@ -84,8 +89,39 @@ const Profile = (props) => {
             <p>
               <b>Manage account details</b>
             </p>
-            <a >Change Password</a>
-            <a >Change Email</a>
+            
+            <div>
+              <form>
+                <div className={styles.inputContainer}>
+                  <input
+                    type='text'
+                    onChange={(e) => setnewPwd(e.target.value)}
+                    value={newPwd}
+                  />
+                </div>
+                <div className={styles.inputContainer}>
+                  <input
+                    type='text'
+                    onChange={(e) => setConfNewPwd(e.target.value)}
+                    value={confNewPwd}
+                  />
+                </div>
+              </form>
+            </div>
+            <a onClick={SubmitPwd}>Change Password</a>
+
+            <div>
+              <form>
+                <div className={styles.inputContainer}>
+                  <input
+                    type='text'
+                    onChange={(e) => setnewMail(e.target.value)}
+                    value={newMail}
+                  />
+                </div>
+              </form>
+            </div>
+            <a onClick={SubmitMail}>Change Email</a>
           </div>
         )}
       </div>
