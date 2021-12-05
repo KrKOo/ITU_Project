@@ -14,11 +14,11 @@ router.post('/login', function (req, res) {
   const password = req.body.password;
 
   knex('user')
-    .select('username')
+    .select('username', 'id')
     .where({ username: username, password: password })
     .then((users) => {
       if (users.length > 0) {
-        res.send({ username: username });
+        res.send({ username: username, id: users[0].id });
       }
       else {
         res.sendStatus(401);
@@ -38,8 +38,8 @@ router.post('/register', function (req, res) {
 
   knex('user')
     .insert({ email: email, username: username, password: password })
-    .then(() => {
-      res.sendStatus(200)
+    .then((data) => {
+      res.send({ username: username, id: data.id });
     })
     .catch((e) => {
       console.error(e);

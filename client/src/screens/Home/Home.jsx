@@ -22,10 +22,9 @@ const Home = (props) => {
   const [playing, setPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
   const [queueIndex, setqueueIndex] = useState(0);
-   
-  const [user, setUser] = useState({ username: "" });
-  const [logg, setLogg] = useState(false);
 
+  const [user, setUser] = useState({ username: '' });
+  const [logg, setLogg] = useState(false);
 
   useEffect(() => {
     if (playing) {
@@ -34,22 +33,16 @@ const Home = (props) => {
     } else console.log('Pausing');
   }, [playing, queue]);
 
- 
+  useEffect(() => {
+    const loggedInUser = JSON.parse(sessionStorage.getItem('logged_user'));
 
-    useEffect(() => {
-      const loggedInUser = JSON.parse(sessionStorage.getItem("logged_user"))
+    if (loggedInUser) {
+      const foundUser = loggedInUser;
 
-      if (loggedInUser) {
-      
-        const foundUser = loggedInUser;
-       
+      setUser(foundUser);
+    }
+  }, [logg]);
 
-        setUser(foundUser);
-    
-      }
-
-    }, [logg]);
- 
   const queueHandler = (foo, index) => {
     setQueue(foo);
     setqueueIndex(index);
@@ -74,58 +67,57 @@ const Home = (props) => {
     setLogg(foo);
   };
 
-
-
-  if (user.username!==""&&logg){
-  return (
-    <div className={styles.Home}>
-      <div className={styles.flexRow}>
-      
-        <SidePanel
-          className={styles.SidePanel}
-          page={page}
-          pageHandler={pageHandler}
-          playlistHandler={playlistHandler}
-          currPlaylist={currPlaylist}
-        />
-        {page === 'Profile' && (
-          <Profile
-            className={styles.Profile}
+  if (user.username !== '' && logg) {
+    return (
+      <div className={styles.Home}>
+        <div className={styles.flexRow}>
+          <SidePanel
+            className={styles.SidePanel}
+            page={page}
             user={user}
-            setLoggHandler={setLoggHandler}
-          />
-        )}
-        {page === 'NewPlaylist' && <Createplaylist />}
-        {page === 'Playlist' && (
-          <Playlist
-            queueHandler={queueHandler}
+            pageHandler={pageHandler}
+            playlistHandler={playlistHandler}
             currPlaylist={currPlaylist}
-            playing={playing}
-            currSong={currSong}
-            playHandler={playHandler}
-            songHandler={songHandler}
           />
-        )}
-        {page === 'Search' && <Search user={user}/>}
-      </div>
+          {page === 'Profile' && (
+            <Profile
+              className={styles.Profile}
+              user={user}
+              setLoggHandler={setLoggHandler}
+            />
+          )}
+          {page === 'NewPlaylist' && <Createplaylist />}
+          {page === 'Playlist' && (
+            <Playlist
+              queueHandler={queueHandler}
+              currPlaylist={currPlaylist}
+              playing={playing}
+              currSong={currSong}
+              playHandler={playHandler}
+              songHandler={songHandler}
+            />
+          )}
+          {page === 'Search' && <Search user={user} />}
+        </div>
 
-      <Player
-        className={styles.Player}
-        playing={playing}
-        queueIndex={queueIndex}
-        indexHandler={indexHandler}
-        audioSrc={Object.keys(currSong).length===0 ? '' : currSong.audioSrc}
-        queue={queue}
-        playHandler={playHandler}
-        currSong={currSong}
-      />
-    </div>
-  );}else
-  return(
-    <div>
-      <Login setLoggHandler={setLoggHandler}/>
-    </div>);
-  
+        <Player
+          className={styles.Player}
+          playing={playing}
+          queueIndex={queueIndex}
+          indexHandler={indexHandler}
+          audioSrc={Object.keys(currSong).length === 0 ? '' : currSong.audioSrc}
+          queue={queue}
+          playHandler={playHandler}
+          currSong={currSong}
+        />
+      </div>
+    );
+  } else
+    return (
+      <div>
+        <Login setLoggHandler={setLoggHandler} />
+      </div>
+    );
 };
 
 export default Home;

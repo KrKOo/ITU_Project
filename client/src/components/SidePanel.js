@@ -1,13 +1,29 @@
-//import React, { useState } from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 import styles from './SidePanel.module.scss';
 
 export const SidePanel = (props) => {
+  const [playlists, setPlaylists] = useState([]);
 
+  useState(() => {
+    axios.get('/api/playlist/getByUserId', {
+      params: {
+        id: props.user.id
+      }
+    }).then((res) => {
+      setPlaylists(res.data);
+    })
+      .catch((e) => {
+        console.error(e);
+      })
+  }, [])
 
-  //Placeholder list, nahradi ho list s playlistami
   const numbers = ["Metal", "Rap", "Pop", "Cock", "Sock"];
-  const listItems = numbers.map((number, index) => (
-    <button className={props.currPlaylist === number ? styles.activeButton : ""} onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(number) }}><li key={index}> {number} </li></button>
+  const listItems = playlists.map((item, index) => (
+    <button className={props.currPlaylist === item ? styles.activeButton : ""}
+      onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(item) }}>
+      <li key={index}> {item.name} </li>
+    </button>
   ));
 
 

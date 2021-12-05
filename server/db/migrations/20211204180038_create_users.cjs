@@ -1,4 +1,8 @@
-
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
 exports.up = function (knex) {
   return knex.schema
     .createTable('user', function (table) {
