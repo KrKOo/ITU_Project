@@ -25,7 +25,8 @@ const Home = (props) => {
   const [update, setUpdate] = useState(0);
 
   const [user, setUser] = useState({ username: '' });
-  const [logg, setLogg] = useState(false);
+  const [logg, setLogg] = useState(true);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (playing) {
@@ -37,11 +38,7 @@ const Home = (props) => {
   useEffect(() => {
     const loggedInUser = JSON.parse(sessionStorage.getItem('logged_user'));
 
-    if (loggedInUser) {
-      const foundUser = loggedInUser;
-
-      setUser(foundUser);
-    }
+    setUser(loggedInUser);
   }, [logg]);
   const updateHandler = (foo) => {
     setUpdate(foo);
@@ -70,7 +67,11 @@ const Home = (props) => {
     setLogg(foo);
   };
 
-  if (user.username !== '' && logg) {
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  if (user?.username || !isLoaded) {
     return (
       <div className={styles.Home}>
         <div className={styles.flexRow}>
@@ -90,7 +91,13 @@ const Home = (props) => {
               setLoggHandler={setLoggHandler}
             />
           )}
-          {page === 'NewPlaylist' && <Createplaylist user={user} updateHandler={updateHandler} update={update} />}
+          {page === 'NewPlaylist' && (
+            <Createplaylist
+              user={user}
+              updateHandler={updateHandler}
+              update={update}
+            />
+          )}
           {page === 'Playlist' && (
             <Playlist
               queueHandler={queueHandler}
