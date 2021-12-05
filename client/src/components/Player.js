@@ -150,7 +150,7 @@ export const Player = (props) => {
   return (
     <div className={`${styles.Player} ${props.className}`}>
       <div className={styles.controlsContainer}>
-        <p>Song playing: {props.currSong.title}</p>
+        <p>Song playing: {props.currSong.name}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
             <p style={{ textAlign: 'left' }}>0:00</p>
