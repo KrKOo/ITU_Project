@@ -7,7 +7,7 @@ import { SidePanel } from '../../components/SidePanel';
 import { Player } from '../../components/Player';
 import { useState, useEffect } from 'react';
 import { Createplaylist } from '../Profile/Createplaylist';
-
+import Login from '../Login/Login';
 const Home = (props) => {
   const [page, setPage] = useState('Profile');
   const [currPlaylist, setCurrPlaylist] = useState([]);
@@ -15,7 +15,10 @@ const Home = (props) => {
   const [playing, setPlaying] = useState(false);
   const [queue, setQueue] = useState([]);
   const [queueIndex, setqueueIndex] = useState(0);
-  const [logged, setLogged] = useState(false)
+   
+  const [user, setUser] = useState({ username: "" });
+  const [logg, setLogg] = useState(false);
+
 
   useEffect(() => {
     if (playing) {
@@ -24,6 +27,22 @@ const Home = (props) => {
     } else console.log('Pausing');
   }, [playing, queue]);
 
+ 
+
+    useEffect(() => {
+      const loggedInUser = JSON.parse(sessionStorage.getItem("logged_user"))
+
+      if (loggedInUser) {
+      
+        const foundUser = loggedInUser;
+       
+
+        setUser(foundUser);
+    
+      }
+
+    }, [logg]);
+ 
   const queueHandler = (foo) => {
     setQueue(foo);
     setqueueIndex(0);
@@ -44,10 +63,17 @@ const Home = (props) => {
   const playHandler = (foo) => {
     setPlaying(foo);
   };
+  const setLoggHandler = (foo) => {
+    setLogg(foo);
+  };
+
+
+
+  if (user.username!==""&&logg){
   return (
     <div className={styles.Home}>
       <div className={styles.flexRow}>
-        {props.user.username === '' && <Navigate to={'/login'} />}
+      
         <SidePanel
           className={styles.SidePanel}
           page={page}
@@ -58,8 +84,8 @@ const Home = (props) => {
         {page === 'Profile' && (
           <Profile
             className={styles.Profile}
-            user={props.user}
-            setUserHandler={props.setUserHandler}
+            user={user}
+            setLoggHandler={setLoggHandler}
           />
         )}
         {page === 'NewPlaylist' && <Createplaylist />}
@@ -87,7 +113,12 @@ const Home = (props) => {
         currSong={currSong}
       />
     </div>
-  );
+  );}else
+  return(
+    <div>
+      <Login setLoggHandler={setLoggHandler}/>
+    </div>);
+  
 };
 
 export default Home;
