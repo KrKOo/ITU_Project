@@ -6,7 +6,8 @@ exports.up = function (knex) {
       table.increments('id');
       table.integer('username').unsigned();
       table.string('name', 255).notNullable();
-      table.string('genre', 255).notNullable();
+      table.string('artist', 255).notNullable();
+      table.string('album', 255).notNullable();
       table.string('path', 255).notNullable();
     })
 };
