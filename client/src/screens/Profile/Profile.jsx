@@ -8,30 +8,55 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
-
+import axios from 'axios';
 const Profile = (props) => {
   const [newDetails, setNewDetails] = useState('');
   const [settings, setSettings] = useState(false);
-  const HandleSubmit = async (e) => {
-    alert('Changing username to: ' + newDetails.username);
-    //request na BE
-  };
+  const [playlistList, setPlaylistList] = useState(false);
+  const [changeMail, setChangeMail] = useState(false);
+  const [image, setImage] = useState();
+ 
   useEffect(() => {
     setNewDetails(props.user);
+
+    const response =  axios.get('/api/playlist/getByUserId', {
+      params:{ id: props.user.id}
+     
+    }).then(function (response) {
+      console.log('RESPONSE', response);
+      if (response.status === 200) {
+        console.log('RESPONSE', response.data);
+        setPlaylistList(response.data);
+        
+  
+      } else {
+        alert('Failed to get user playlist from server');
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    }); 
   }, [props.user]);
 
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const listItems = numbers.map((number, index) => (
+
+   
+
+
+
+
+  const listItems = Object.values(playlistList).map((playlistList, index) => (
+ 
     <div className={styles.gridItem} key={index}>
+       
       <div className={styles.thumbnail}>
         <img
-          src='https://c.tenor.com/yheo1GGu3FwAAAAd/rick-roll-rick-ashley.gif'
+          src= {"/api/playlist/getImageById?id="+playlistList.id}
           alt=''
         />
       </div>
       <div className={styles.description}>
-        <h3>Title</h3>
-        <p className={styles.author}>Author Authorsky</p>
+        <h3>{playlistList.name}</h3>
+        <p className={styles.author}>{props.user.username}</p>
       </div>
     </div>
   ));
@@ -49,7 +74,7 @@ const Profile = (props) => {
         <div className={styles.profileInfo}>
           <img
             className={styles.profilePic}
-            src='https://c.tenor.com/yheo1GGu3FwAAAAd/rick-roll-rick-ashley.gif'
+            src={image}
             alt=''></img>
 
           <p>{props.user.username}</p>
@@ -59,8 +84,8 @@ const Profile = (props) => {
             <p>
               <b>Manage account details</b>
             </p>
-            <a href='/'>Change Password</a>
-            <a href='/'>Change Email</a>
+            <a >Change Password</a>
+            <a >Change Email</a>
           </div>
         )}
       </div>
