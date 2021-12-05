@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Playlist.module.scss';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 import tracks from '../../tracks';
 const Playlist = (props) => {
   const handleClick = (foo, index) => {
@@ -10,10 +7,12 @@ const Playlist = (props) => {
     else {
       props.songHandler(tracks[index]);
       //console.log("index"+index);
-      let queue = [];
-      for (index; index < tracks.length; index++) queue.push(tracks[index]);
-      props.queueHandler(queue);
-      props.playHandler(true);
+        //console.log("index"+index);
+        let queue = [];
+        //for (index; index < tracks.length; index++)
+        queue.push(tracks);
+        props.queueHandler(tracks, index);
+        props.playHandler(true);
     }
   };
   const songs = ['Suck', 'On', 'Deez', 'Nuts'];
