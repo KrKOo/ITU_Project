@@ -35,6 +35,7 @@ const Search = (props) => {
         .then(function (response) {
           if (response.status === 200) {
             console.log(response.data);
+            props.updateHandler(props.update + 1);
           } else {
             alert("Failed to upload")
           }

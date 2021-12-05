@@ -111,7 +111,19 @@ const Home = (props) => {
               songHandler={songHandler}
             />
           )}
-          {page === 'Search' && <Search user={user} />}
+          {page === 'Search' && (
+            <Search 
+              user={user} 
+              updateHandler={updateHandler} 
+              update={update}
+              queueHandler={queueHandler}
+              currPlaylist={currPlaylist}
+              playing={playing}
+              currSong={currSong}
+              playHandler={playHandler}
+              songHandler={songHandler}
+            />
+          )}
         </div>
 
         <Player
