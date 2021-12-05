@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Profile.jsx
+ * Autori: Ľuboš Martinček (xmarti96)
+ *
+ */
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';

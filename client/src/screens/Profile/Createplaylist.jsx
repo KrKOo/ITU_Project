@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Createplaylist.jsx
+ * Autori: Ľuboš Martinček (xmarti96)
+ *
+ */
+
 import React from 'react';
 import { useState, useEffect } from 'react';
 

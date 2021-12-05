@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Playlist.jsx
+ * Autori: Ľuboš Martinček (xmarti96)
+ *
+ */
+
 import { useState, useEffect, useRef } from 'react';
 import styles from './Playlist.module.scss';
 import tracks from '../../tracks';
