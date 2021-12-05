@@ -1,0 +1,70 @@
+@import 'src/assets/styles/colors.scss';
+
+.Search {
+  background: $dark-1;
+  color: $font-1;
+  width: 100%;
+  height: max;
+  font-family: $primaryFont;
+
+  .contentContainer {
+    width: 90%;
+    max-width: 1400px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    input {
+      font-size: 0.9em;
+      padding: 15px 20px;
+      background: $dark-2;
+      border: none;
+      border-radius: 30px;
+      color: $font-1;
+      outline: none;
+      &:focus {
+        background: white;
+        color: black;
+      }
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: $primary;
+      font-size: 1.2em;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      &:hover svg {
+        cursor: pointer;
+        background: $primary;
+
+        color: $dark-1;
+      }
+      &:hover {
+        cursor: pointer;
+      }
+
+      svg {
+        transform: scale(1.5);
+        margin: 10px;
+        padding: 5px;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+.Upload {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  background: red;
+}

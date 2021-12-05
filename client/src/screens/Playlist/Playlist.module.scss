@@ -6,6 +6,13 @@
   width: 100%;
   height: max;
 
+  .contentContainer {
+    width: 90%;
+    max-width: 1400px;
+    display: block;
+    margin: 0 auto;
+  }
+
   li {
     background-color: rgb(22, 22, 22);
     height: 40px;
@@ -16,19 +23,14 @@
       cursor: pointer;
     }
   }
-  
+
   ul {
     list-style-type: none;
     list-style-position: inside;
     margin: 0;
     padding: 0;
-    
   }
   .playbtn {
     align-self: left;
-
   }
 }
-
-
-

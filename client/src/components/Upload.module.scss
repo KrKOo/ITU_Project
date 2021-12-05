@@ -1,0 +1,59 @@
+@import 'src/assets/styles/colors.scss';
+
+.Upload {
+  z-index: 2;
+  background: #27272760;
+  border-radius: 30px;
+  padding: 20px;
+  .inputContainer {
+    label,
+    input {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    }
+
+    label {
+      padding: 5px 10px;
+    }
+
+    input {
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      padding: 15px 20px;
+    }
+
+    input[type='text'],
+    input[type='date'] {
+      box-shadow: 5px 5px 5px black;
+
+      background: $dark-2;
+      border: none;
+      border-radius: 30px;
+      color: $font-1;
+      outline: none;
+      &:focus {
+        background: white;
+        color: black;
+      }
+    }
+  }
+
+  .submitContainer {
+    display: block;
+    text-align: center;
+    .submitButton {
+      background: $primary;
+      padding: 10px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 5px 5px 5px black;
+      &:hover {
+        background: white;
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+}

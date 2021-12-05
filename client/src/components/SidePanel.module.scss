@@ -3,18 +3,26 @@
 .SidePanel {
   display: flex;
   flex-direction: column;
-  position: left;
   color: $font-1;
+
+  h2 {
+    padding: 0 10px;
+    font-family: $primaryFont;
+  }
 
   button {
     padding: 10px;
     color: inherit;
     width: 100%;
-    background: $dark-2;
+    background: $dark-3;
     border: none;
+    font-family: $primaryFont;
     font-size: 1em;
+    text-align: left;
+    padding: 10px 30px;
     &:hover {
-      filter: brightness(85%);
+      filter: brightness(70%);
+      color: $font-1;
       cursor: pointer;
     }
   }
@@ -28,4 +36,3 @@
     padding: 0;
   }
 }
-
