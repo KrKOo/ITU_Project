@@ -148,7 +148,7 @@ export const Player = (props) => {
             <p style={{ textAlign: 'left' }}>0:00</p>
             <div className={styles.sliderContainer}>
 
-              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => change(e.target.value)} value={slider} />
+              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => {if (Object.keys(props.currSong).length !== 0) change(e.target.value)}} value={slider} />
 
 
             </div>
@@ -156,10 +156,10 @@ export const Player = (props) => {
           </div>
 
           <div className={styles.Buttons}>
-            <SkipPrevious onClick={e => { handleChange(false) }} />
+            <SkipPrevious onClick={e => { if (Object.keys(props.currSong).length !== 0) handleChange(false) }} />
             {!props.playing && <PlayCircleIcon onClick={e => { if (Object.keys(props.currSong).length !== 0) props.playHandler(true) }} />}
             {props.playing && <PauseCircleIcon onClick={e => { props.playHandler(false) }} />}
-            <SkipNext onClick={e => { handleChange(true) }} />
+            <SkipNext onClick={e => { if (Object.keys(props.currSong).length !== 0) handleChange(true) }} />
           </div>
         </ThemeProvider>
       </div >
