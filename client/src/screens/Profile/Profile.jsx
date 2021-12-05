@@ -31,6 +31,7 @@ const Profile = (props) => {
   return (
     <div className={`${styles.Profile} ${props.className}`}>
       <div className={styles.profileInfoContainer}>
+        <button  onClick={e=>{sessionStorage.clear();props.setLoggHandler(false)  }} className={styles.accountDetailButton}>Logout</button>
         <button
           onClick={(e) => {
             setSettings(!settings);

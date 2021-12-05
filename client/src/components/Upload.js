@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from './Upload.module.scss';
-
+import axios from 'axios';
 const Search = (props) => {
   const [title, setTitle] = useState('');
   const [album, setAlbum] = useState('');
@@ -12,10 +12,24 @@ const Search = (props) => {
     if (title === '' || album === '' || artist === '' || release === '')
       alert('Please fill in all upload details');
     else {
-      console.log(title);
-      console.log(album);
-      console.log(artist);
-      console.log(release);
+
+
+      const response = await axios.post('/api/song/upload', {
+      
+        name:title,
+        artist:artist
+      })    
+      
+      .then(function (response) {
+        if(response.status===200){
+          console.log(response.data);
+        }else{
+          alert("Failed to upload")
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     }
   };
 
