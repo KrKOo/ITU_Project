@@ -13,42 +13,42 @@
   width: 100%;
   height: max;
   font-family: $primaryFont;
-  button{
-    float: right;
-    color: inherit;
+  .UploadScreen {
+    button {
+      float: right;
+      color: inherit;
 
-    height: 40px;
-    width: 100px;
-    background: $dark-2;
-    border: none;
-    font-size: 1em;
-    &:hover {
-      filter: brightness(85%);
-      cursor: pointer;
+      height: 40px;
+      width: 100px;
+      background: $dark-2;
+      border: none;
+      font-size: 1em;
+      &:hover {
+        filter: brightness(85%);
+        cursor: pointer;
+      }
+    }
+    li {
+      background-color: rgb(22, 22, 22);
+
+      height: 40px;
+      padding-left: 15%;
+      text-align: left;
+
+      vertical-align: center;
+      &:hover {
+        filter: brightness(85%);
+        cursor: pointer;
+      }
     }
   }
-  li {
-    background-color: rgb(22, 22, 22);
-  
-    height: 40px;
-    padding-left: 15%;
-    text-align: left;
-    
-    vertical-align: center;
-    &:hover {
-      filter: brightness(85%);
-      cursor: pointer;
-    }
-  }
-  
+
   ul {
-   
     list-style-type: none;
     list-style-position: inside;
     margin: 0;
     padding: 0;
     padding-top: 50px;
-    
   }
   .contentContainer {
     width: 90%;
@@ -100,6 +100,44 @@
       }
     }
   }
+
+  .songList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    li {
+      background: $dark-2;
+      padding: 0 30px;
+      font-size: 1.3em;
+      border-radius: 30px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .songName {
+        flex: 1;
+      }
+      .artist {
+        flex: 1;
+      }
+      .buttonContainer {
+        flex: 2;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: row;
+        button {
+          float: right;
+          background: none;
+          border: none;
+          color: $primary;
+          font-size: 0.9em;
+          &:hover {
+            cursor: pointer;
+            color: $font-1;
+          }
+        }
+      }
+    }
+  }
 }
 
 .Upload {
@@ -109,5 +147,17 @@
   margin-left: auto;
   margin-right: auto;
   width: 300px;
+}
+
+.playlists {
+  position: absolute;
+  top: 50%;
+  left: 50%;
   background: red;
+  ul {
+    display: flex;
+
+    button {
+    }
+  }
 }
