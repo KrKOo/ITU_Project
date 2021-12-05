@@ -86,7 +86,7 @@ const Home = (props) => {
               setLoggHandler={setLoggHandler}
             />
           )}
-          {page === 'NewPlaylist' && <Createplaylist />}
+          {page === 'NewPlaylist' && <Createplaylist user={user} />}
           {page === 'Playlist' && (
             <Playlist
               queueHandler={queueHandler}

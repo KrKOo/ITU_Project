@@ -1,3 +1,11 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Player.js
+ * Autori: Luboš Martinček (xmarti96)
+ *         
+ */
+
+
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './Player.module.scss';
 import Slider from '@mui/material/Slider';
