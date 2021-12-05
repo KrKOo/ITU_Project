@@ -46,7 +46,7 @@ const Profile = (props) => {
 
   const listItems = Object.values(playlistList).map((playlistList, index) => (
  
-    <div className={styles.gridItem} key={index}>
+    <div  onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(playlistList.name) }}className={styles.gridItem} key={index}>
        
       <div className={styles.thumbnail}>
         <img

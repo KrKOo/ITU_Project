@@ -88,6 +88,8 @@ const Home = (props) => {
               className={styles.Profile}
               user={user}
               setLoggHandler={setLoggHandler}
+              pageHandler={pageHandler}
+              playlistHandler={playlistHandler}
             />
           )}
           {page === 'NewPlaylist' && <Createplaylist user={user} updateHandler={updateHandler} update={update} />}
