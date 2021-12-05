@@ -17,7 +17,7 @@ export const SidePanel = (props) => {
       .catch((e) => {
         console.error(e);
       })
-  }, [props.update])
+  }, [props.update, props.user.id])
 
   const listItems = playlists.map((item, index) => (
     <button className={props.currPlaylist === item.name ? styles.activeButton : ""}
