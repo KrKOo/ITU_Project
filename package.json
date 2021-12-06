@@ -9,10 +9,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-server": "cd server && npm install && npm run build ",
-    "build-client": "cd client && npm install && npm run build",
+    "build-server": "cd server && npm install ",
+    "build-client": "cd client && npm install",
     "make-file-dirs": "cd server && mkdir playlistImages && mkdir musicFiles",
-    "build": "npm run build-server && npm run build-client && npm run move-builds && npm run make-file-dirs",
+    "build": "npm run make-file-dirs && npm run build-server && npm run build-client",
     "start": "cd server && npm run start"
   },
   "repository": {
