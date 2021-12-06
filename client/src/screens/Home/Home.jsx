@@ -24,7 +24,7 @@ const Home = (props) => {
   const [queueIndex, setqueueIndex] = useState(0);
   const [update, setUpdate] = useState(0);
 
-  const [user, setUser] = useState({ username: '' });
+  const [user, setUser] = useState();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -39,6 +39,7 @@ const Home = (props) => {
 
     setUser(loggedInUser);
   }, [props.logg]);
+
   const updateHandler = (foo) => {
     setUpdate(foo);
   };
@@ -71,8 +72,10 @@ const Home = (props) => {
     };
   }, []);
 
-  if ((user?.username && props.logg) || !isLoaded) {
-    return (
+  return (user && props.logg) || !isLoaded ? (
+    !isLoaded ? (
+      <h>Loading...</h>
+    ) : (
       <div className={styles.Home}>
         <div className={styles.flexRow}>
           <SidePanel
@@ -140,13 +143,12 @@ const Home = (props) => {
           currSong={currSong}
         />
       </div>
-    );
-  } else
-    return (
-      <div>
-        <Login setLoggHandler={props.setLoggHandler} />
-      </div>
-    );
+    )
+  ) : (
+    <div>
+      <Login setLoggHandler={props.setLoggHandler} />
+    </div>
+  );
 };
 
 export default Home;

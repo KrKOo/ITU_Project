@@ -7,7 +7,14 @@ import Login from './screens/Login/Login.jsx'
 import styles from './App.module.scss'
 
 function App() {
-  const [logg, setLogg] = useState(true);
+  const [logg, setLogg] = useState(false);
+
+  useEffect(() => {
+    const loggedInUser = JSON.parse(sessionStorage.getItem('logged_user'));
+    if (loggedInUser?.username) {
+      setLogg(true);
+    }
+  }, [])
 
   return (
     <div className={styles.App}>

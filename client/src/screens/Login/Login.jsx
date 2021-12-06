@@ -58,10 +58,10 @@ const Login = (props) => {
         });
         // set the state of the user
 
-        props.setLoggHandler(true);
         if (response.status === 200) {
           console.log('RESPONSE', response.data);
           sessionStorage.setItem('logged_user', JSON.stringify(response.data));
+          props.setLoggHandler(true);
         } else {
           alert('Failed to log in, wrong credentials');
         }
