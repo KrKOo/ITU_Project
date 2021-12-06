@@ -12,7 +12,6 @@ import styles from './Createplaylist.module.scss';
 
 export const Createplaylist = (props) => {
   const [playlistName, setPlaylistName] = useState('');
-  const [isImagePicked, setIsImagePicked] = useState(false);
   const [selectedFile, setSelectedFile] = useState();
 
   const createHandler = async (e) => {

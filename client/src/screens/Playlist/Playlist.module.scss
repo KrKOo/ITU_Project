@@ -11,24 +11,13 @@
   background: $dark-1;
   color: $font-1;
   width: 100%;
-  height: max;
+  font-family: $primaryFont;
 
   .contentContainer {
     width: 90%;
     max-width: 1400px;
     display: block;
     margin: 0 auto;
-  }
-
-  li {
-    background-color: rgb(22, 22, 22);
-    height: 40px;
-    text-align: center;
-    vertical-align: center;
-    &:hover {
-      filter: brightness(85%);
-      cursor: pointer;
-    }
   }
 
   ul {
@@ -39,5 +28,49 @@
   }
   .playbtn {
     align-self: left;
+  }
+}
+
+.songList {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .listItem {
+    background: $dark-2;
+    padding: 0 30px;
+    font-size: 1.3em;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-shadow: 5px 5px 5px black;
+
+    &:hover {
+      filter: brightness(85%);
+      cursor: pointer;
+    }
+    .songName {
+      flex: 1;
+    }
+    .artist {
+      flex: 1;
+    }
+    .buttonContainer {
+      flex: 2;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: row;
+      button {
+        float: right;
+        background: none;
+        border: none;
+        color: $primary;
+        font-size: 0.9em;
+        &:hover {
+          cursor: pointer;
+          color: $font-1;
+        }
+      }
+    }
   }
 }

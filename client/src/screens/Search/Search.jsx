@@ -24,11 +24,15 @@ const Search = (props) => {
   const [playlists, setPlaylists] = useState([]);
 
   const ref = useRef(null);
+  const playlistRef = useRef(null);
   //-----Stavy pre upload-------
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setAdd(false);
+    }
+    if (playlistRef.current && !playlistRef.current.contains(event.target)) {
+      setShowPlayists(false);
     }
   };
   const handleClick = (foo, index) => {
@@ -135,17 +139,29 @@ const Search = (props) => {
         </div>
 
         <div ref={ref}>
-          {add && <Upload className={styles.Upload} user={props.user} updateHandler={props.updateHandler} update={props.update}/>}
+          {add && (
+            <Upload
+              className={styles.Upload}
+              user={props.user}
+              updateHandler={props.updateHandler}
+              update={props.update}
+            />
+          )}
         </div>
 
         <ul className={styles.songList}>
           {songs.map((item, index) => (
-            <li key={index}  onClick={e => {handleClick(item, index)}}>
+            <li
+              key={index}
+              onClick={(e) => {
+                handleClick(item, index);
+              }}>
               <p className={styles.songName}>{item.name}</p>
               <p className={styles.artist}>{item.artist}</p>
               <div className={styles.buttonContainer}>
                 <button
                   onClick={(e) => {
+                    e.stopPropagation();
                     setShowPlayists(true);
                     setSongId(item.id);
                   }}>
@@ -156,9 +172,9 @@ const Search = (props) => {
           ))}
         </ul>
       </div>
-      
+
       {showPlayists && (
-        <div className={styles.Playlists}>
+        <div className={styles.Playlists} ref={playlistRef}>
           {playlists.map((playlist, index) => (
             <div className={styles.playlistButtonContainer}>
               <button

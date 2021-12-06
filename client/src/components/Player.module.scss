@@ -9,8 +9,11 @@
     display: block;
     width: 80vw;
     max-width: 500px;
-
     margin: 0 auto;
+
+    p {
+      color: $font-1;
+    }
 
     .sliderRow {
       display: flex;
