@@ -2,7 +2,7 @@
  *
  * Súbor: Player.js
  * Autori: Luboš Martinček (xmarti96)
- *         
+ *
  */
 
 
@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 export const Player = (props) => {
   const [slider, setSlider] = useState(0);
   const [bool, setBool] = useState(false);
+  const [currTime, setCurrTime] = useState(0);
 
   //const { title, artist } = props.queue[0];
   const audio = useRef(new Audio(props.audioSrc));
@@ -39,7 +40,6 @@ export const Player = (props) => {
           audio.current.play();
         }
         else {
-          console.log("end ")
           props.playHandler(false)
           audio.current.pause();
           clearInterval(interval.current);
@@ -49,7 +49,7 @@ export const Player = (props) => {
       } else {
         setSlider(audio.current.currentTime);
       }
-    }, [1000]);
+    }, [100]);
   };
 
   const change = (value) => {
@@ -64,6 +64,9 @@ export const Player = (props) => {
 
     if (props.playing === true) {
       if (ready.current) {
+
+        audio.current = new Audio(props.audioSrc)
+        audio.current.currentTime = currTime;
         audio.current.play();
         Timer();
       } else {
@@ -71,7 +74,10 @@ export const Player = (props) => {
         ready.current = true;
       }
     }
-    else audio.current.pause();
+    else {
+      audio.current.pause();
+      setCurrTime(audio.current.currentTime);
+    }
 
   }, [props.playing])
 
@@ -80,7 +86,6 @@ export const Player = (props) => {
     audio.current.pause();
 
     audio.current = new Audio(props.audioSrc);
-    ;
 
     if (ready.current) {
       audio.current.play();
@@ -92,12 +97,6 @@ export const Player = (props) => {
 
 
   }, [props.queue, props.currSong])
-
-
-
-
-
-
 
   const theme = createTheme({
     palette: {
@@ -117,7 +116,6 @@ export const Player = (props) => {
         audio.current.play();
       }
       else {
-        console.log("end ")
         props.playHandler(false)
         audio.current.pause();
         props.indexHandler(props.queue.length - 1);
@@ -135,7 +133,6 @@ export const Player = (props) => {
         audio.current.play();
       }
       else {
-        console.log("end ")
         props.playHandler(false)
         audio.current.pause();
         props.indexHandler(0);
@@ -153,14 +150,14 @@ export const Player = (props) => {
         <p>Song playing: {props.currSong.name}</p>
         <ThemeProvider theme={theme}>
           <div className={styles.sliderRow}>
-            
+
             <div className={styles.sliderContainer}>
 
-              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => {if (Object.keys(props.currSong).length !== 0) change(e.target.value)}} value={slider} />
+              <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => { if (Object.keys(props.currSong).length !== 0) change(e.target.value) }} value={slider} />
 
 
             </div>
-            
+
           </div>
 
           <div className={styles.Buttons}>

@@ -25,7 +25,6 @@ const Home = (props) => {
   const [update, setUpdate] = useState(0);
 
   const [user, setUser] = useState({ username: '' });
-  const [logg, setLogg] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -39,7 +38,7 @@ const Home = (props) => {
     const loggedInUser = JSON.parse(sessionStorage.getItem('logged_user'));
 
     setUser(loggedInUser);
-  }, [logg]);
+  }, [props.logg]);
   const updateHandler = (foo) => {
     setUpdate(foo);
   };
@@ -52,7 +51,7 @@ const Home = (props) => {
     setCurrSong(queue[foo]);
   };
   const songHandler = (foo) => {
-    console.log(foo)
+    console.log(foo);
     setCurrSong(foo);
   };
   const pageHandler = (foo) => {
@@ -64,15 +63,15 @@ const Home = (props) => {
   const playHandler = (foo) => {
     setPlaying(foo);
   };
-  const setLoggHandler = (foo) => {
-    setLogg(foo);
-  };
 
   useEffect(() => {
     setIsLoaded(true);
+    return () => {
+      setIsLoaded(false);
+    };
   }, []);
 
-  if (user?.username || !isLoaded) {
+  if ((user?.username && props.logg) || !isLoaded) {
     return (
       <div className={styles.Home}>
         <div className={styles.flexRow}>
@@ -89,7 +88,7 @@ const Home = (props) => {
             <Profile
               className={styles.Profile}
               user={user}
-              setLoggHandler={setLoggHandler}
+              setLoggHandler={props.setLoggHandler}
               pageHandler={pageHandler}
               playlistHandler={playlistHandler}
             />
@@ -112,9 +111,9 @@ const Home = (props) => {
             />
           )}
           {page === 'Search' && (
-            <Search 
-              user={user} 
-              updateHandler={updateHandler} 
+            <Search
+              user={user}
+              updateHandler={updateHandler}
               update={update}
               queueHandler={queueHandler}
               currPlaylist={currPlaylist}
@@ -131,7 +130,11 @@ const Home = (props) => {
           playing={playing}
           queueIndex={queueIndex}
           indexHandler={indexHandler}
-          audioSrc={Object.keys(currSong).length === 0 ? '' : `/api/song/getFileById?id=${currSong.id}`}
+          audioSrc={
+            Object.keys(currSong).length === 0
+              ? ''
+              : `/api/song/getFileById?id=${currSong.id}`
+          }
           queue={queue}
           playHandler={playHandler}
           currSong={currSong}
@@ -141,7 +144,7 @@ const Home = (props) => {
   } else
     return (
       <div>
-        <Login setLoggHandler={setLoggHandler} />
+        <Login setLoggHandler={props.setLoggHandler} />
       </div>
     );
 };

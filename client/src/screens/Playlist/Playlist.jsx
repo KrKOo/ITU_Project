@@ -8,7 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import styles from './Playlist.module.scss';
-import tracks from '../../tracks';
+
 const Playlist = (props) => {
   const [playlist, setPlaylist] = useState([]);
   const [playlistID, setPlaylistID] = useState(1);
@@ -42,23 +42,24 @@ const Playlist = (props) => {
       });
   }, [props.currPlaylist.id]);
 
-  const listItems = playlist.map((item, index) => (
-    <li
-      onClick={(e) => {
-        handleClick(item, index);
-      }}>
-      {item.name} {item.artist}
-    </li>
-  ));
-
   return (
     <div className={`${styles.Playlist} ${props.className}`}>
-      <div classname={styles.contentContainer}>
-        <header>
-          <b>Playlist name: {props.currPlaylist.name}</b>
-        </header>
+      <div className={styles.contentContainer}>
+        <h2>Search for a song</h2>
         <div>
-          <ul>{listItems}</ul>
+          <ul className={styles.songList}>
+            {playlist.map((item, index) => (
+              <div
+                className={styles.listItem}
+                key={index}
+                onClick={(e) => {
+                  handleClick(item, index);
+                }}>
+                <p className={styles.songName}>{item.name}</p>
+                <p className={styles.artist}>{item.artist}</p>
+              </div>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

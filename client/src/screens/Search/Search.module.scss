@@ -11,7 +11,6 @@
   background: $dark-1;
   color: $font-1;
   width: 100%;
-  height: max;
   font-family: $primaryFont;
   .UploadScreen {
     button {
@@ -113,6 +112,11 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      box-shadow: 5px 5px 5px black;
+      &:hover {
+        filter: brightness(85%);
+        cursor: pointer;
+      }
       .songName {
         flex: 1;
       }
