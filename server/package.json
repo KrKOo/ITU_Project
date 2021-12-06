@@ -26,7 +26,7 @@
     "build": "npm-run-all clean build-client transpile",
     "server": "node ./bin/www --experimental-specifier-resolution=node",
     "dev": "NODE_ENV=development npm-run-all build server",
-    "prod": "NODE_ENV=production npm-run-all build server",
+    "prod": "NODE_ENV=production npm-run-all migrate build server",
     "transpile": "babel . --out-dir build --ignore node_modules",
     "watch:dev": "nodemon --ignore node_modules --ignore build",
     "clean": "rimraf build",
