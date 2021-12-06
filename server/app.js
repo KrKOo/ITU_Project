@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(fileUpload());
 
 
-app.use(express.static(path.join(path.resolve(), "..", "client", "build")));
+//app.use(express.static(path.join(path.resolve(), "..", "client", "build")));
 
 
 app.use('/api/auth', authRouter);
