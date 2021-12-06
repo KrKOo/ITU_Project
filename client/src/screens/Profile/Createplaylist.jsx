@@ -23,6 +23,7 @@ export const Createplaylist = (props) => {
     formData.append('image', selectedFile);
     formData.append('name', playlistName);
     formData.append('userID', props.user.id);
+    console.log(props.user.id);
 
     axios({
       method: 'post',

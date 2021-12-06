@@ -27,7 +27,6 @@ const Playlist = (props) => {
   };
 
   useEffect(() => {
-    console.log('asdfasdfasdfasdf');
     axios
       .get('/api/playlist/getAllSongs', {
         params: {
