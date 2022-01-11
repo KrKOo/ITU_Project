@@ -5,7 +5,7 @@
  *
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './Profile.module.scss';
 import axios from 'axios';
 const Profile = (props) => {
@@ -15,6 +15,20 @@ const Profile = (props) => {
   const [newMail, setnewMail] = useState('@');
   const [newPwd, setnewPwd] = useState('New Password');
   const [confNewPwd, setConfNewPwd] = useState('Repeat New Password');
+  const ref = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () => {
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setSettings(false);
+    }
+  };
 
   useEffect(() => {
     setNewDetails(props.user);
@@ -86,7 +100,7 @@ const Profile = (props) => {
           <p>{props.user.username}</p>
         </div>
         {settings && (
-          <div className={styles.manageProfileWrapper}>
+          <div className={styles.manageProfileWrapper} ref={ref}>
             <p>
               <b>Manage account details</b>
             </p>
@@ -95,21 +109,30 @@ const Profile = (props) => {
               <form>
                 <div className={styles.inputContainer}>
                   <input
-                    type='text'
+                    type='password'
                     onChange={(e) => setnewPwd(e.target.value)}
-                    value={newPwd}
+                    placeholder='Old Password'
                   />
                 </div>
                 <div className={styles.inputContainer}>
                   <input
-                    type='text'
+                    type='password'
+                    onChange={(e) => setnewPwd(e.target.value)}
+                    placeholder='New Password'
+                  />
+                </div>
+                <div className={styles.inputContainer}>
+                  <input
+                    type='password'
                     onChange={(e) => setConfNewPwd(e.target.value)}
-                    value={confNewPwd}
+                    placeholder='Repeat New Password'
                   />
                 </div>
               </form>
             </div>
-            <a onClick={SubmitPwd}>Change Password</a>
+            <a onClick={SubmitPwd} style={{ cursor: 'pointer' }}>
+              Change Password
+            </a>
 
             <div>
               <form>
@@ -117,12 +140,16 @@ const Profile = (props) => {
                   <input
                     type='text'
                     onChange={(e) => setnewMail(e.target.value)}
-                    value={newMail}
+                    placeholder='New Email'
                   />
                 </div>
               </form>
             </div>
-            <a onClick={SubmitMail}>Change Email</a>
+            <a
+              style={{ marginBottom: 20, cursor: 'pointer' }}
+              onClick={SubmitMail}>
+              Change Email
+            </a>
           </div>
         )}
       </div>
@@ -139,4 +166,3 @@ const Profile = (props) => {
 };
 
 export default Profile;
-//

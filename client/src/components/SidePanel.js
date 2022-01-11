@@ -11,9 +11,9 @@ import styles from './SidePanel.module.scss';
 
 export const SidePanel = (props) => {
   const [playlists, setPlaylists] = useState([]);
+  const [listItems, setListItems] = useState();
 
   useEffect(() => {
-    console.log("pls");
     axios.get('/api/playlist/getByUserId', {
       params: {
         id: props.user.id
@@ -26,13 +26,16 @@ export const SidePanel = (props) => {
       })
   }, [props.update, props.user.id])
 
-  const listItems = playlists.map((item, index) => (
-    <button className={props.currPlaylist === item.name ? styles.activeButton : ""}
-      onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(item) }}>
-      <li key={index}> {item.name} </li>
-    </button>
-  ));
+  useEffect(() => {
+    const li = playlists.map((item, index) => (
+      <button className={props.currPlaylist.id === item.id ? styles.activeButton : ""}
+        onClick={e => { props.pageHandler("Playlist"); props.playlistHandler(item); }}>
+        <li key={index}> {item.name} </li>
+      </button >
+    ))
 
+    setListItems(li)
+  }, [props, playlists])
 
   return (
     <div className={`${styles.SidePanel} ${props.className}`}>
@@ -57,7 +60,9 @@ export const SidePanel = (props) => {
       </ul>
       <div>
         <h2>My playlists</h2>
-        <ul>{listItems}</ul>
+        <ul>
+          {listItems}
+        </ul>
       </div>
 
     </div >

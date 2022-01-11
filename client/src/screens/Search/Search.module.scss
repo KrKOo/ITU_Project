@@ -140,6 +140,15 @@
           }
         }
       }
+
+      .deleteIcon {
+        margin-left: 50px;
+        color: rgb(189, 25, 25);
+        &:hover {
+          cursor: pointer;
+          filter: brightness(85%);
+        }
+      }
     }
   }
 }

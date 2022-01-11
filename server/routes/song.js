@@ -99,5 +99,25 @@ router.post('/upload', function (req, res) {
   });
 });
 
+router.post('/delete', function (req, res) {
+  const songID = req.body.songID;
+
+  console.log(songID)
+  knex('song')
+    .where({ id: songID }).del()
+    .then(
+      () => {
+        knex('playlistSong').del().where({ songId: songID }).then(() => {
+          return res.sendStatus(200);
+        })
+      }
+    )
+    .catch(e => {
+      console.error(e);
+      res.sendStatus(500);
+    })
+
+});
+
 export default router;
 

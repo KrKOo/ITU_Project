@@ -39,20 +39,26 @@ const Playlist = (props) => {
   return (
     <div className={`${styles.Playlist} ${props.className}`}>
       <div className={styles.contentContainer}>
-        <h2>Search for a song</h2>
+        <h2>{props.currPlaylist.name}</h2>
         <div>
           <ul className={styles.songList}>
-            {playlist.map((item, index) => (
-              <div
-                className={styles.listItem}
-                key={index}
-                onClick={(e) => {
-                  handleClick(item, index);
-                }}>
-                <p className={styles.songName}>{item.name}</p>
-                <p className={styles.artist}>{item.artist}</p>
-              </div>
-            ))}
+            {playlist.length > 0 ? (
+              playlist
+                .filter((item) => item.id != null)
+                .map((item, index) => (
+                  <div
+                    className={styles.listItem}
+                    key={index}
+                    onClick={(e) => {
+                      handleClick(item, index);
+                    }}>
+                    <p className={styles.songName}>{item.name}</p>
+                    <p className={styles.artist}>{item.artist}</p>
+                  </div>
+                ))
+            ) : (
+              <h3>This playlist is empty. Fill it with your favorite songs.</h3>
+            )}
           </ul>
         </div>
       </div>

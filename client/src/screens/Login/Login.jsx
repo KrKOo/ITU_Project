@@ -15,7 +15,6 @@ import {
 import styles from './Login.module.scss';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import validator from 'validator';
 
 const Login = (props) => {
   const [username, setUsername] = useState('');
@@ -26,26 +25,18 @@ const Login = (props) => {
   const [email, setEmail] = useState('');
   const [showLogin, setShowLogin] = useState(true);
 
-  const validateEmail = (e) => {
-    if (!validator.isEmail(e.target.value)) setEmailError('Enter valid Email!');
-  };
-
-  useEffect(() => {
-    if (
-      confirmPassword !== password &&
-      password !== '' &&
-      confirmPassword !== ''
-    )
-      setEmailError('Passwords do not match');
-    else setEmailError('');
-  }, [confirmPassword, password]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (confirmPassword === password || showLogin) {
       if (username === '' || password === '') {
         alert('Please fill in the login form');
+      } else if (
+        confirmPassword !== password &&
+        password !== '' &&
+        confirmPassword !== ''
+      ) {
+        setEmailError('Passwords do not match');
       } else {
         var endpoint = showLogin ? '/api/auth/login ' : '/api/auth/register ';
 
@@ -133,7 +124,6 @@ const Login = (props) => {
               <input
                 type='email'
                 onChange={(e) => {
-                  validateEmail(e);
                   setEmail(e.target.value);
                 }}
                 value={email}

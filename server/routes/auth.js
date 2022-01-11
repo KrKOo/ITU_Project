@@ -39,7 +39,8 @@ router.post('/register', function (req, res) {
   knex('user')
     .insert({ email: email, username: username, password: password })
     .then((data) => {
-      res.send({ username: username, id: data.id });
+      console.log("REGISTER: ", data)
+      res.send({ username: username, id: data[0] });
     })
     .catch((e) => {
       console.error(e);
