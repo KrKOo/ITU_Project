@@ -1,12 +1,11 @@
 /* Projekt: Tvorba uživatelských rozhraní - Music player
  *
  * Súbor: Profile.jsx
- * Autori: Ľuboš Martinček (xmarti96)
+ * Autori: Boris Hlavienka (xhlavi18)
  *
  */
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import styles from './Profile.module.scss';
 import axios from 'axios';
 const Profile = (props) => {
@@ -20,14 +19,12 @@ const Profile = (props) => {
   useEffect(() => {
     setNewDetails(props.user);
 
-    const response = axios
+    axios
       .get('/api/playlist/getByUserId', {
         params: { id: props.user.id },
       })
       .then(function (response) {
-        console.log('RESPONSE', response);
         if (response.status === 200) {
-          console.log('RESPONSE', response.data);
           setPlaylistList(response.data);
         } else {
           alert('Failed to get user playlist from server');

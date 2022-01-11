@@ -5,22 +5,17 @@
  *
  */
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Playlist.module.scss';
 
 const Playlist = (props) => {
   const [playlist, setPlaylist] = useState([]);
-  const [playlistID, setPlaylistID] = useState(1);
 
   const handleClick = (foo, index) => {
     if (props.currSong === foo) props.playHandler(!props.playing);
     else {
-      //console.log(foo)
       props.songHandler(foo);
-      //console.log("index"+index);
-      //console.log("index"+index);
-      //for (index; index < tracks.length; index++)
       props.queueHandler(playlist, index);
       props.playHandler(true);
     }

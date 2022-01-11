@@ -6,7 +6,6 @@
  */
 
 import styles from './Home.module.scss';
-import { Link, Navigate } from 'react-router-dom';
 import Profile from '../Profile/Profile';
 import Playlist from '../Playlist/Playlist';
 import Search from '../Search/Search';

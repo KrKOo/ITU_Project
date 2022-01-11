@@ -1,7 +1,7 @@
 /* Projekt: Tvorba uživatelských rozhraní - Music player
  *
  * Súbor: Createplaylist.jsx
- * Autori: Ľuboš Martinček (xmarti96)
+ * Autori: Boris Hlavienka (xhlavi18)
  *
  */
 

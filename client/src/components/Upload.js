@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Upload.js
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 import { useState, useEffect } from 'react';
 import styles from './Upload.module.scss';
 import axios from 'axios';
