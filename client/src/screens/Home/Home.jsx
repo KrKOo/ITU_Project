@@ -100,6 +100,7 @@ const Home = (props) => {
               user={user}
               updateHandler={updateHandler}
               update={update}
+              pageHandler={pageHandler}
             />
           )}
           {page === 'Playlist' && (

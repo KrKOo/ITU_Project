@@ -10,6 +10,7 @@ import styles from './Search.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import axios from 'axios';
 import Upload from '../../components/Upload';
 
@@ -48,7 +49,7 @@ const Search = (props) => {
     return () => {
       document.removeEventListener('click', handleClickOutside, true);
     };
-  });
+  }, []);
 
   useEffect(() => {
     axios
@@ -69,7 +70,7 @@ const Search = (props) => {
       });
   }, [props.user.id]);
 
-  useEffect(() => {
+  const getSongsBySearch = () => {
     axios
       .get('/api/song/search', {
         params: {
@@ -87,6 +88,28 @@ const Search = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+  };
+  const searchSongs = () => {
+    axios
+      .get('/api/song/search', {
+        params: {
+          name: searchVal,
+        },
+      })
+      .then(function (response) {
+        if (response.status === 200) {
+          setSongs(response.data);
+        } else {
+          alert('Failed to get songs');
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    searchSongs();
   }, [searchVal, props.update]);
 
   const addSongToPlaylist = (playlistID) => {
@@ -97,13 +120,26 @@ const Search = (props) => {
       })
       .then(function (response) {
         if (response.status === 200) {
-          console.log(response.data);
         } else {
           alert('Failed to add song to playlist');
         }
       })
       .catch(function (error) {
         console.log(error);
+      });
+  };
+
+  const deleteSong = (songID) => {
+    if (!window.confirm('Are you sure you want to delete this song?')) return;
+
+    axios
+      .post('/api/song/delete', {
+        songID: songID,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          searchSongs();
+        }
       });
   };
 
@@ -143,41 +179,63 @@ const Search = (props) => {
               user={props.user}
               updateHandler={props.updateHandler}
               update={props.update}
+              hide={() => setAdd(false)}
             />
           )}
         </div>
 
         <ul className={styles.songList}>
-          {songs.map((item, index) => (
-            <li
-              key={index}
-              onClick={(e) => {
-                handleClick(item, index);
-              }}>
-              <p className={styles.songName}>{item.name}</p>
-              <p className={styles.artist}>{item.artist}</p>
-              <div className={styles.buttonContainer}>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setShowPlayists(true);
-                    setSongId(item.id);
-                  }}>
-                  Add to playlist
-                </button>
-              </div>
-            </li>
-          ))}
+          {songs.length > 0 ? (
+            songs.map((item, index) => (
+              <li
+                key={index}
+                onClick={(e) => {
+                  handleClick(item, index);
+                }}>
+                <p className={styles.songName}>{item.name}</p>
+                <p className={styles.artist}>{item.artist}</p>
+                <div className={styles.buttonContainer}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowPlayists(true);
+                      setSongId(item.id);
+                    }}>
+                    Add to playlist
+                  </button>
+
+                  {props.user.username === item.username && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteSong(item.id);
+                        setSongId(item.id);
+                      }}>
+                      <FontAwesomeIcon
+                        icon={faTrashAlt}
+                        size='1x'
+                        className={styles.deleteIcon}
+                      />
+                    </button>
+                  )}
+                </div>
+              </li>
+            ))
+          ) : (
+            <h3>No songs found. Try uploading some yourself.</h3>
+          )}
         </ul>
       </div>
 
       {showPlayists && (
         <div className={styles.Playlists} ref={playlistRef}>
+          <h2>Select a playlist</h2>
           {playlists.map((playlist, index) => (
             <div className={styles.playlistButtonContainer}>
               <button
                 onClick={(e) => {
                   addSongToPlaylist(playlist.id);
+                  setShowPlayists(false);
                 }}>
                 {playlist.name}
               </button>

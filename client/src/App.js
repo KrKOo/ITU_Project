@@ -14,6 +14,7 @@ import Login from './screens/Login/Login.jsx'
 import styles from './App.module.scss'
 
 function App() {
+  console.log = console.warn = console.error = () => { }; // DISABLE CONSOLE
   const [logg, setLogg] = useState(false);
 
   useEffect(() => {

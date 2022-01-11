@@ -23,6 +23,39 @@ export const Player = (props) => {
   const ready = useRef(false);
   const { duration } = audio.current;
 
+
+  const handleKeyDown = (event) => {
+    switch (event.keyCode) {
+      case 32: //SPACE
+        if (!props.playing) {
+          if (Object.keys(props.currSong).length !== 0) {
+            props.playHandler(true)
+          }
+        }
+        else {
+          props.playHandler(false)
+        }
+        break;
+      case 39: //RIGHT ARROW
+        if (Object.keys(props.currSong).length !== 0) handleChange(true)
+        break;
+      case 37: //LEFT ARROW
+        if (Object.keys(props.currSong).length !== 0) handleChange(false)
+        break;
+      default:
+        break;
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [props])
+
+
+
   const Timer = () => {
     // Clear any timers already running
     clearInterval(interval.current);
@@ -61,8 +94,8 @@ export const Player = (props) => {
 
     if (props.playing === true) {
       if (ready.current) {
-
-        audio.current = new Audio(props.audioSrc)
+        audio.current.pause();
+        audio.current = new Audio(props.audioSrc);
         audio.current.currentTime = currTime;
         audio.current.play();
         Timer();
@@ -91,8 +124,6 @@ export const Player = (props) => {
       // Set the ready ref as true for the next pass
       ready.current = true;
     }
-
-
   }, [props.queue, props.currSong])
 
   const theme = createTheme({
@@ -108,16 +139,15 @@ export const Player = (props) => {
       if (props.queueIndex + 1 < props.queue.length) {
         props.indexHandler(props.queueIndex + 1);
         clearInterval(interval.current);
-        audio.current.currentTime = 0;
+        setCurrTime(0)
         setSlider(audio.current.currentTime);
-        audio.current.play();
+        props.playHandler(true)
       }
       else {
         props.playHandler(false)
-        audio.current.pause();
         props.indexHandler(props.queue.length - 1);
         clearInterval(interval.current);
-        audio.current.currentTime = 0;
+        setCurrTime(0)
         setSlider(audio.current.currentTime);
       }
     }
@@ -125,16 +155,15 @@ export const Player = (props) => {
       if (props.queueIndex - 1 >= 0) {
         props.indexHandler(props.queueIndex - 1);
         clearInterval(interval.current);
-        audio.current.currentTime = 0;
+        setCurrTime(0)
         setSlider(audio.current.currentTime);
-        audio.current.play();
+        props.playHandler(true)
       }
       else {
         props.playHandler(false)
-        audio.current.pause();
         props.indexHandler(0);
         clearInterval(interval.current);
-        audio.current.currentTime = 0;
+        setCurrTime(0);
         setSlider(audio.current.currentTime);
       }
     }
@@ -149,14 +178,9 @@ export const Player = (props) => {
           <div className={styles.sliderRow}>
 
             <div className={styles.sliderContainer}>
-
               <Slider defaultValue={0} min={0} max={duration ? duration : `${duration}`} onChange={(e) => { if (Object.keys(props.currSong).length !== 0) change(e.target.value) }} value={slider} />
-
-
             </div>
-
           </div>
-
           <div className={styles.Buttons}>
             <SkipPrevious onClick={e => { if (Object.keys(props.currSong).length !== 0) handleChange(false) }} />
             {!props.playing && <PlayCircleIcon onClick={e => { if (Object.keys(props.currSong).length !== 0) props.playHandler(true) }} />}
@@ -165,7 +189,6 @@ export const Player = (props) => {
           </div>
         </ThemeProvider>
       </div >
-
     </div >);
 
 }
