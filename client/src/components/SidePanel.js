@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: Upload.js
+ * Autori: Boris Hlavienka (xhlavi18)
+ *
+ */
+
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import styles from './SidePanel.module.scss';

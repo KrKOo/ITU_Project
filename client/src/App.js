@@ -1,3 +1,10 @@
+/* Projekt: Tvorba uživatelských rozhraní - Music player
+ *
+ * Súbor: App.js
+ * Autori: Kristian Kovac (xkovac61)
+ *
+ */
+
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 

@@ -5,7 +5,6 @@
  *
  */
 
-
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './Player.module.scss';
 import Slider from '@mui/material/Slider';
@@ -17,10 +16,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 export const Player = (props) => {
   const [slider, setSlider] = useState(0);
-  const [bool, setBool] = useState(false);
   const [currTime, setCurrTime] = useState(0);
 
-  //const { title, artist } = props.queue[0];
   const audio = useRef(new Audio(props.audioSrc));
   const interval = useRef();
   const ready = useRef(false);

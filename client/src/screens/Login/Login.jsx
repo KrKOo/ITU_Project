@@ -1,7 +1,7 @@
 /* Projekt: Tvorba uživatelských rozhraní - Music player
  *
  * Súbor: Login.jsx
- * Autori: Ľuboš Martinček (xmarti96)
+ * Autori: Kristian Kovac (xkovac61)
  *
  */
 
@@ -44,8 +44,6 @@ const Login = (props) => {
     e.preventDefault();
 
     if (confirmPassword === password || showLogin) {
-      //console.log(username + ', ' + password);
-      console.log('here');
       if (username === '' || password === '') {
         alert('Please fill in the login form');
       } else {

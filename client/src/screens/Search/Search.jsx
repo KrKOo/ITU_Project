@@ -1,7 +1,7 @@
 /* Projekt: Tvorba uživatelských rozhraní - Music player
  *
  * Súbor: Search.jsx
- * Autori: Ľuboš Martinček (xmarti96)
+ * Autori: Kristian Kovac (xkovac61)
  *
  */
 
@@ -18,7 +18,6 @@ const Search = (props) => {
   const [add, setAdd] = useState(false);
   const [showPlayists, setShowPlayists] = useState(false);
   const [songId, setSongId] = useState();
-  const [playlistId, setPlaylistId] = useState(false);
 
   const [songs, setSongs] = useState([]);
   const [playlists, setPlaylists] = useState([]);
@@ -38,7 +37,6 @@ const Search = (props) => {
   const handleClick = (foo, index) => {
     if (props.currSong === foo) props.playHandler(!props.playing);
     else {
-      //console.log(foo)
       props.songHandler(foo);
       props.queueHandler(songs, index);
       props.playHandler(true);
